@@ -32,7 +32,7 @@ var NUM_PARTICLES = ( ( ROWS = 100 ) * ( COLS = 300 ) ),
     THICKNESS = Math.pow( 200, 2 ),
     SPACING = 4,
     MARGIN = 100,
-    COLOR = 0,
+    COLOR = 80,
     DRAG = 0.95,
     EASE = 0.25,
 
@@ -155,3 +155,44 @@ function step() {
 
 init();
 step();
+
+var timer;
+var timerStart;
+var timeSpentOnSite;
+
+function getTimeSpentOnSite() {
+    timeSpentOnSite = parseInt(localStorage.getItem('timeSpentOnSite'));
+    timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
+    return timeSpentOnSite;
+}
+
+function startCounting() {
+    timerStart = Date.now();
+    timer = setInterval(function () {
+        timeSpentOnSite = getTimeSpentOnSite() + (Date.now() - timerStart);
+        localStorage.setItem('timeSpentOnSite', timeSpentOnSite);
+        timerStart = Date.now();
+        // Update time display
+        updateDisplay();
+    }, 1000);
+}
+
+// Reset time when the page loads
+function resetTimeSpentOnSite() {
+    localStorage.setItem('timeSpentOnSite', 0);
+    timeSpentOnSite = 0;
+    // Update time display
+    updateDisplay();
+}
+
+// Update the time display
+function updateDisplay() {
+    var timeDisplay = document.getElementById('timeDisplay');
+    timeDisplay.textContent = parseInt(timeSpentOnSite / 1000) + ' seconds';
+}
+
+// Call reset function on page load
+window.onload = function () {
+    resetTimeSpentOnSite();
+    startCounting();
+};

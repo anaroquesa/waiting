@@ -1,6 +1,6 @@
 html,
 body {
-  color: #1e1e1e;
+  color: #b47171;
   font-family: "Inter", sans-serif;
   background-color: #1e1e1e;
   cursor: none;
@@ -13,7 +13,7 @@ body {
 }
 @keyframes runText {
   0% {
-    transform: translateX(165%);
+    transform: translateX(160%);
   }
   100% {
     transform: translateX(-100%);
@@ -48,5 +48,16 @@ h1.running-text {
   color:#1e1e1e;
   white-space: nowrap;
   margin: 0;
-  animation: runText 17s linear infinite;
+  animation: runText 25s linear infinite;
+}
+
+.seconds {
+  width: 100vw;
+  display: block;
+  font-size: 0.8em;
+  color: rgb(82, 82, 82);
+  margin: auto;
+  text-align: center;
+  bottom: 0;
+  position:fixed;
 }
