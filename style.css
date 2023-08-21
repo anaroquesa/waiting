@@ -44,8 +44,9 @@ body {
 
 h1.running-text {
   font-size: 1em;
+  font-weight: 100;
   color:#1e1e1e;
   white-space: nowrap;
   margin: 0;
-  animation: runText 16s linear infinite;
+  animation: runText 17s linear infinite;
 }

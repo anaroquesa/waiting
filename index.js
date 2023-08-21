@@ -29,10 +29,10 @@ function animateCircles(event) {
 
 
 var NUM_PARTICLES = ( ( ROWS = 100 ) * ( COLS = 300 ) ),
-    THICKNESS = Math.pow( 80, 2 ),
+    THICKNESS = Math.pow( 200, 2 ),
     SPACING = 4,
     MARGIN = 100,
-    COLOR = 173,
+    COLOR = 0,
     DRAG = 0.95,
     EASE = 0.25,
 
