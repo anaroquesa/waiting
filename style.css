@@ -2,32 +2,50 @@ html,
 body {
   color: #1e1e1e;
   font-family: "Inter", sans-serif;
-  text-transform: uppercase;
   background-color: #1e1e1e;
+  cursor: none;
 }
-
-h1 {
-  font-size: 3em;
-  font-weight: 200;
-  text-align: left;
-  color: white;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-}
-h2 {
-  font-size: 1em;
-  font-weight: 200;
-  text-align: left;
-  color: white;
-  position: absolute;
-  left: 10%;
-  top: 90%;
-}
-
 
 #container {
   position: absolute;
   left: 50%;
   top: 50%;
+}
+@keyframes runText {
+  0% {
+    transform: translateX(165%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: greenyellow;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.bar:hover{
+  background-color:#1e1e1e;
+  transition: .3s;
+}
+
+.bar:hover h1 {
+  color:greenyellow;
+  transition: .3s;
+}
+
+h1.running-text {
+  font-size: 1em;
+  color:#1e1e1e;
+  white-space: nowrap;
+  margin: 0;
+  animation: runText 16s linear infinite;
 }
