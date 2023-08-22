@@ -5,7 +5,7 @@ let isMobileDevice = regexp.test(details);
 if (isMobileDevice) {
 
   var NUM_PARTICLES = ( ( ROWS = 100 ) * ( COLS = 100 ) ),
-  THICKNESS = Math.pow( 200, 2 ),
+  THICKNESS = Math.pow( 100, 2 ),
   SPACING = 4,
   MARGIN = 100,
   COLOR = 80,
@@ -64,7 +64,7 @@ for ( i = 0; i < NUM_PARTICLES; i++ ) {
   list[i] = p;
 }
 
-container.addEventListener( 'click', function(e) {
+container.addEventListener( 'ondrag', function(e) {
 
   bounds = container.getBoundingClientRect();
   mx = e.clientX - bounds.left;
@@ -172,7 +172,7 @@ window.onload = function () {
 window.addEventListener('scroll', () => {
   const verticalScrollPx = window.scrollY || window.pageYOffset;
 
-  if (verticalScrollPx < 500) {
+  if (verticalScrollPx < 100) {
     document.body.style.backgroundColor = 'red';
   } else if (verticalScrollPx > 500 && verticalScrollPx < 1000) {
     document.body.style.backgroundColor = 'green';

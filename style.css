@@ -3,10 +3,10 @@ body {
   font-family: "Inter", sans-serif;
   background-color: #1e1e1e;
   cursor: none;
+  scroll-snap-type: none;
 }
 
 #container {
-  background-color: black;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -14,7 +14,7 @@ body {
 
 @keyframes runText {
   0% {
-    transform: translateX(100%);
+    transform: translateX(50%);
   }
   100% {
     transform: translateX(-100%);
@@ -40,7 +40,7 @@ body {
 
 .bar:hover h1 {
   color:greenyellow;
-  transition: .3s;
+  transition: .2s;
 }
 
 h1.running-text {
@@ -61,7 +61,7 @@ h1.running-text {
   text-align: center;
   bottom: 0;
   position:fixed;
-  line-height: 1em;
+  line-height: 1.6em;
 }
 
 @media only screen and (min-width: 768px) {
@@ -93,7 +93,7 @@ h1.running-text {
 
   .bar:hover h1 {
     color:greenyellow;
-    transition: .3s;
+    transition: .2s;
   }
 
   h1.running-text {
