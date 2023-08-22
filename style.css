@@ -11,9 +11,10 @@ body {
   left: 50%;
   top: 50%;
 }
+
 @keyframes runText {
   0% {
-    transform: translateX(160%);
+    transform: translateX(100%);
   }
   100% {
     transform: translateX(-100%);
@@ -32,7 +33,7 @@ body {
   white-space: nowrap;
 }
 
-.bar:hover{
+.bar:active{
   background-color:#1e1e1e;
   transition: .3s;
 }
@@ -60,5 +61,59 @@ h1.running-text {
   text-align: center;
   bottom: 0;
   position:fixed;
-  line-height: 0.5em;
+  line-height: 0.8em;
+}
+
+@media only screen and (min-width: 768px) {
+  @keyframes runText {
+    0% {
+      transform: translateX(160%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    background-color: greenyellow;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .bar:hover{
+    background-color:#1e1e1e;
+    transition: .3s;
+  }
+
+  .bar:hover h1 {
+    color:greenyellow;
+    transition: .3s;
+  }
+
+  h1.running-text {
+    font-size: 0.8em;
+    font-weight: 100;
+    color:#1e1e1e;
+    white-space: nowrap;
+    margin: 0;
+    animation: runText 25s linear infinite;
+  }
+
+  .seconds {
+    width: 100vw;
+    display: block;
+    font-size: 0.8em;
+    color: rgb(82, 82, 82);
+    margin: auto;
+    text-align: center;
+    bottom: 0;
+    position:fixed;
+    line-height: 0.8em;
+  }
 }

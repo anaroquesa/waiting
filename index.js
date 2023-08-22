@@ -1,156 +1,132 @@
-/* document.onmousemove = animateCircles; // circle follow mouse
+let details = navigator.userAgent;
+let regexp = /android|iphone|kindle|ipad/i;
+let isMobileDevice = regexp.test(details);
 
-const colors = ['#1abc9c', '#3498db', '#f1c40f']
+if (isMobileDevice) {
 
-function animateCircles(event) {
-  const circle = document.createElement("div");
-  circle.setAttribute("class", "circle");
-  document.body.appendChild(circle); // adds function to body
+  var NUM_PARTICLES = ( ( ROWS = 100 ) * ( COLS = 100 ) ),
+  THICKNESS = Math.pow( 200, 2 ),
+  SPACING = 4,
+  MARGIN = 100,
+  COLOR = 80,
+  DRAG = 0.95,
+  EASE = 0.25,
 
-  // adds motion
-  circle.style.left = event.clientX + 'px';
-  circle.style.top = event.clientY + 'px';
-
-  // randomize color
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  circle.style.color = color;
-
-  // adds animation
-  circle.style.transition = "all 0.3s linear 0s";
-
-  circle.style.left = circle.offsetLeft - 20 + 'px';
-  circle.style.top = circle.offsetTop - 20 + 'px';
-
-  circle.style.width = "50px";
-  circle.style.height = "50px";
-  circle.style.borderWidth = "5px";
-  circle.style.opacity = 0;
-} */
-
-
-var NUM_PARTICLES = ( ( ROWS = 100 ) * ( COLS = 300 ) ),
-    THICKNESS = Math.pow( 200, 2 ),
-    SPACING = 4,
-    MARGIN = 100,
-    COLOR = 80,
-    DRAG = 0.95,
-    EASE = 0.25,
-
-    container,
-    particle,
-    canvas,
-    mouse,
-    stats,
-    list,
-    ctx,
-    tog,
-    man,
-    dx, dy,
-    mx, my,
-    d, t, f,
-    a, b,
-    i, n,
-    w, h,
-    p, s,
-    r, c
-    ;
+  container,
+  particle,
+  canvas,
+  mouse,
+  stats,
+  list,
+  ctx,
+  tog,
+  man,
+  dx, dy,
+  mx, my,
+  d, t, f,
+  a, b,
+  i, n,
+  w, h,
+  p, s,
+  r, c
+  ;
 
 particle = {
-  vx: 0,
-  vy: 0,
-  x: 0,
-  y: 0
+vx: 0,
+vy: 0,
+x: 0,
+y: 0
 };
 
 function init() {
 
-  container = document.getElementById( 'container' );
-  canvas = document.createElement( 'canvas' );
+container = document.getElementById( 'container' );
+canvas = document.createElement( 'canvas' );
 
-  ctx = canvas.getContext( '2d' );
-  man = false;
-  tog = true;
+ctx = canvas.getContext( '2d' );
+man = false;
+tog = true;
 
-  list = [];
+list = [];
 
-  w = canvas.width = COLS * SPACING + MARGIN * 2;
-  h = canvas.height = ROWS * SPACING + MARGIN * 2;
+w = canvas.width = COLS * SPACING + MARGIN * 2;
+h = canvas.height = ROWS * SPACING + MARGIN * 2;
 
-  container.style.marginLeft = Math.round( w * -0.5 ) + 'px';
-  container.style.marginTop = Math.round( h * -0.5 ) + 'px';
+container.style.marginLeft = Math.round( w * -0.5 ) + 'px';
+container.style.marginTop = Math.round( h * -0.5 ) + 'px';
 
-  for ( i = 0; i < NUM_PARTICLES; i++ ) {
+for ( i = 0; i < NUM_PARTICLES; i++ ) {
 
-    p = Object.create( particle );
-    p.x = p.ox = MARGIN + SPACING * ( i % COLS );
-    p.y = p.oy = MARGIN + SPACING * Math.floor( i / COLS );
+  p = Object.create( particle );
+  p.x = p.ox = MARGIN + SPACING * ( i % COLS );
+  p.y = p.oy = MARGIN + SPACING * Math.floor( i / COLS );
 
-    list[i] = p;
-  }
+  list[i] = p;
+}
 
-  container.addEventListener( 'mousemove', function(e) {
+container.addEventListener( 'click', function(e) {
 
-    bounds = container.getBoundingClientRect();
-    mx = e.clientX - bounds.left;
-    my = e.clientY - bounds.top;
-    man = true;
+  bounds = container.getBoundingClientRect();
+  mx = e.clientX - bounds.left;
+  my = e.clientY - bounds.top;
+  man = true;
 
-  });
+});
 
-  if ( typeof Stats === 'function' ) {
-    document.body.appendChild( ( stats = new Stats() ).domElement );
-  }
+if ( typeof Stats === 'function' ) {
+  document.body.appendChild( ( stats = new Stats() ).domElement );
+}
 
-  container.appendChild( canvas );
+container.appendChild( canvas );
 }
 
 function step() {
 
-  if ( stats ) stats.begin();
+if ( stats ) stats.begin();
 
-  if ( tog = !tog ) {
+if ( tog = !tog ) {
 
-    if ( !man ) {
+  if ( !man ) {
 
-      t = +new Date() * 0.001;
-      mx = w * 0.5 + ( Math.cos( t * 2.1 ) * Math.cos( t * 0.9 ) * w * 0.45 );
-      my = h * 0.5 + ( Math.sin( t * 3.2 ) * Math.tan( Math.sin( t * 0.8 ) ) * h * 0.45 );
-    }
-
-    for ( i = 0; i < NUM_PARTICLES; i++ ) {
-
-      p = list[i];
-
-      d = ( dx = mx - p.x ) * dx + ( dy = my - p.y ) * dy;
-      f = -THICKNESS / d;
-
-      if ( d < THICKNESS ) {
-        t = Math.atan2( dy, dx );
-        p.vx += f * Math.cos(t);
-        p.vy += f * Math.sin(t);
-      }
-
-      p.x += ( p.vx *= DRAG ) + (p.ox - p.x) * EASE;
-      p.y += ( p.vy *= DRAG ) + (p.oy - p.y) * EASE;
-
-    }
-
-  } else {
-
-    b = ( a = ctx.createImageData( w, h ) ).data;
-
-    for ( i = 0; i < NUM_PARTICLES; i++ ) {
-
-      p = list[i];
-      b[n = ( ~~p.x + ( ~~p.y * w ) ) * 4] = b[n+1] = b[n+2] = COLOR, b[n+3] = 255;
-    }
-
-    ctx.putImageData( a, 0, 0 );
+    t = +new Date() * 0.001;
+    mx = w * 0.5 + ( Math.cos( t * 2.1 ) * Math.cos( t * 0.9 ) * w * 0.45 );
+    my = h * 0.5 + ( Math.sin( t * 3.2 ) * Math.tan( Math.sin( t * 0.8 ) ) * h * 0.45 );
   }
 
-  if ( stats ) stats.end();
+  for ( i = 0; i < NUM_PARTICLES; i++ ) {
 
-  requestAnimationFrame( step );
+    p = list[i];
+
+    d = ( dx = mx - p.x ) * dx + ( dy = my - p.y ) * dy;
+    f = -THICKNESS / d;
+
+    if ( d < THICKNESS ) {
+      t = Math.atan2( dy, dx );
+      p.vx += f * Math.cos(t);
+      p.vy += f * Math.sin(t);
+    }
+
+    p.x += ( p.vx *= DRAG ) + (p.ox - p.x) * EASE;
+    p.y += ( p.vy *= DRAG ) + (p.oy - p.y) * EASE;
+
+  }
+
+} else {
+
+  b = ( a = ctx.createImageData( w, h ) ).data;
+
+  for ( i = 0; i < NUM_PARTICLES; i++ ) {
+
+    p = list[i];
+    b[n = ( ~~p.x + ( ~~p.y * w ) ) * 4] = b[n+1] = b[n+2] = COLOR, b[n+3] = 255;
+  }
+
+  ctx.putImageData( a, 0, 0 );
+}
+
+if ( stats ) stats.end();
+
+requestAnimationFrame( step );
 }
 
 init();
@@ -161,38 +137,216 @@ var timerStart;
 var timeSpentOnSite;
 
 function getTimeSpentOnSite() {
-    timeSpentOnSite = parseInt(localStorage.getItem('timeSpentOnSite'));
-    timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
-    return timeSpentOnSite;
+  timeSpentOnSite = parseInt(localStorage.getItem('timeSpentOnSite'));
+  timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
+  return timeSpentOnSite;
 }
 
 function startCounting() {
-    timerStart = Date.now();
-    timer = setInterval(function () {
-        timeSpentOnSite = getTimeSpentOnSite() + (Date.now() - timerStart);
-        localStorage.setItem('timeSpentOnSite', timeSpentOnSite);
-        timerStart = Date.now();
-        // Update time display
-        updateDisplay();
-    }, 1000);
+  timerStart = Date.now();
+  timer = setInterval(function () {
+      timeSpentOnSite = getTimeSpentOnSite() + (Date.now() - timerStart);
+      localStorage.setItem('timeSpentOnSite', timeSpentOnSite);
+      timerStart = Date.now();
+      updateDisplay();
+  }, 1000);
 }
 
-// Reset time when the page loads
 function resetTimeSpentOnSite() {
-    localStorage.setItem('timeSpentOnSite', 0);
-    timeSpentOnSite = 0;
-    // Update time display
-    updateDisplay();
+  localStorage.setItem('timeSpentOnSite', 0);
+  timeSpentOnSite = 0;
+  // Update time display
+  updateDisplay();
 }
 
-// Update the time display
 function updateDisplay() {
-    var timeDisplay = document.getElementById('timeDisplay');
-    timeDisplay.textContent = parseInt(timeSpentOnSite / 1000) + ' seconds';
+  var timeDisplay = document.getElementById('timeDisplay');
+  timeDisplay.textContent = parseInt(timeSpentOnSite / 1000) + ' seconds';
 }
 
-// Call reset function on page load
 window.onload = function () {
-    resetTimeSpentOnSite();
-    startCounting();
+  resetTimeSpentOnSite();
+  startCounting();
 };
+
+window.addEventListener('scroll', () => {
+  const verticalScrollPx = window.scrollY || window.pageYOffset;
+
+  if (verticalScrollPx < 500) {
+    document.body.style.backgroundColor = 'red';
+  } else if (verticalScrollPx > 500 && verticalScrollPx < 1000) {
+    document.body.style.backgroundColor = 'green';
+  } else {
+    document.body.style.backgroundColor = 'lightblue';
+  }
+});
+
+} else {
+
+  var NUM_PARTICLES = ( ( ROWS = 100 ) * ( COLS = 300 ) ),
+  THICKNESS = Math.pow( 200, 2 ),
+  SPACING = 4,
+  MARGIN = 100,
+  COLOR = 80,
+  DRAG = 0.95,
+  EASE = 0.25,
+
+  container,
+  particle,
+  canvas,
+  mouse,
+  stats,
+  list,
+  ctx,
+  tog,
+  man,
+  dx, dy,
+  mx, my,
+  d, t, f,
+  a, b,
+  i, n,
+  w, h,
+  p, s,
+  r, c
+  ;
+
+particle = {
+vx: 0,
+vy: 0,
+x: 0,
+y: 0
+};
+
+function init() {
+
+container = document.getElementById( 'container' );
+canvas = document.createElement( 'canvas' );
+
+ctx = canvas.getContext( '2d' );
+man = false;
+tog = true;
+
+list = [];
+
+w = canvas.width = COLS * SPACING + MARGIN * 2;
+h = canvas.height = ROWS * SPACING + MARGIN * 2;
+
+container.style.marginLeft = Math.round( w * -0.5 ) + 'px';
+container.style.marginTop = Math.round( h * -0.5 ) + 'px';
+
+for ( i = 0; i < NUM_PARTICLES; i++ ) {
+
+  p = Object.create( particle );
+  p.x = p.ox = MARGIN + SPACING * ( i % COLS );
+  p.y = p.oy = MARGIN + SPACING * Math.floor( i / COLS );
+
+  list[i] = p;
+}
+
+container.addEventListener( 'mousemove', function(e) {
+
+  bounds = container.getBoundingClientRect();
+  mx = e.clientX - bounds.left;
+  my = e.clientY - bounds.top;
+  man = true;
+
+});
+
+if ( typeof Stats === 'function' ) {
+  document.body.appendChild( ( stats = new Stats() ).domElement );
+}
+
+container.appendChild( canvas );
+}
+
+function step() {
+
+if ( stats ) stats.begin();
+
+if ( tog = !tog ) {
+
+  if ( !man ) {
+
+    t = +new Date() * 0.001;
+    mx = w * 0.5 + ( Math.cos( t * 2.1 ) * Math.cos( t * 0.9 ) * w * 0.45 );
+    my = h * 0.5 + ( Math.sin( t * 3.2 ) * Math.tan( Math.sin( t * 0.8 ) ) * h * 0.45 );
+  }
+
+  for ( i = 0; i < NUM_PARTICLES; i++ ) {
+
+    p = list[i];
+
+    d = ( dx = mx - p.x ) * dx + ( dy = my - p.y ) * dy;
+    f = -THICKNESS / d;
+
+    if ( d < THICKNESS ) {
+      t = Math.atan2( dy, dx );
+      p.vx += f * Math.cos(t);
+      p.vy += f * Math.sin(t);
+    }
+
+    p.x += ( p.vx *= DRAG ) + (p.ox - p.x) * EASE;
+    p.y += ( p.vy *= DRAG ) + (p.oy - p.y) * EASE;
+
+  }
+
+} else {
+
+  b = ( a = ctx.createImageData( w, h ) ).data;
+
+  for ( i = 0; i < NUM_PARTICLES; i++ ) {
+
+    p = list[i];
+    b[n = ( ~~p.x + ( ~~p.y * w ) ) * 4] = b[n+1] = b[n+2] = COLOR, b[n+3] = 255;
+  }
+
+  ctx.putImageData( a, 0, 0 );
+}
+
+if ( stats ) stats.end();
+
+requestAnimationFrame( step );
+}
+
+init();
+step();
+
+var timer;
+var timerStart;
+var timeSpentOnSite;
+
+function getTimeSpentOnSite() {
+  timeSpentOnSite = parseInt(localStorage.getItem('timeSpentOnSite'));
+  timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
+  return timeSpentOnSite;
+}
+
+function startCounting() {
+  timerStart = Date.now();
+  timer = setInterval(function () {
+      timeSpentOnSite = getTimeSpentOnSite() + (Date.now() - timerStart);
+      localStorage.setItem('timeSpentOnSite', timeSpentOnSite);
+      timerStart = Date.now();
+      updateDisplay();
+  }, 1000);
+}
+
+function resetTimeSpentOnSite() {
+  localStorage.setItem('timeSpentOnSite', 0);
+  timeSpentOnSite = 0;
+  // Update time display
+  updateDisplay();
+}
+
+function updateDisplay() {
+  var timeDisplay = document.getElementById('timeDisplay');
+  timeDisplay.textContent = parseInt(timeSpentOnSite / 1000) + ' seconds';
+}
+
+window.onload = function () {
+  resetTimeSpentOnSite();
+  startCounting();
+};
+
+
+}
