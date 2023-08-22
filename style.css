@@ -1,12 +1,12 @@
 html,
 body {
-  color: #b47171;
   font-family: "Inter", sans-serif;
   background-color: #1e1e1e;
   cursor: none;
 }
 
 #container {
+  background-color: black;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -49,7 +49,7 @@ h1.running-text {
   color:#1e1e1e;
   white-space: nowrap;
   margin: 0;
-  animation: runText 25s linear infinite;
+  animation: runText 10s linear infinite;
 }
 
 .seconds {
@@ -61,7 +61,7 @@ h1.running-text {
   text-align: center;
   bottom: 0;
   position:fixed;
-  line-height: 0.8em;
+  line-height: 1em;
 }
 
 @media only screen and (min-width: 768px) {
