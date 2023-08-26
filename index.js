@@ -1,8 +1,8 @@
 $(document).ready(function() {
   $(document).on('mousemove', function(e) {
     $('#cursor').css({
-      left: e.pageX,
-      top: e.pageY
+      left: e.pageX - 10,
+      top: e.pageY - 10
     });
   })
 });
@@ -67,14 +67,12 @@ function init() {
     list[i] = p;
   }
 
-  container.addEventListener( 'mousemove', function(e) {
-
+  container.addEventListener('mousemove', function(e) {
     bounds = container.getBoundingClientRect();
-    mx = e.clientX - bounds.left;
-    my = e.clientY - bounds.top;
+    mx = Math.min(Math.max(e.clientX - bounds.left, MARGIN), w - MARGIN);
+    my = Math.min(Math.max(e.clientY - bounds.top, MARGIN), h - MARGIN);
     man = true;
-
-  });
+});
 
   if ( typeof Stats === 'function' ) {
     document.body.appendChild( ( stats = new Stats() ).domElement );
@@ -109,8 +107,8 @@ function step() {
         p.vy += f * Math.sin(t);
       }
 
-      p.x += ( p.vx *= DRAG ) + (p.ox - p.x) * EASE;
-      p.y += ( p.vy *= DRAG ) + (p.oy - p.y) * EASE;
+      p.x += (p.vx *= DRAG) + (p.ox - p.x) * EASE;
+      p.y += (p.vy *= DRAG) + (p.oy - p.y) * EASE;
 
     }
 
@@ -171,3 +169,12 @@ window.onload = function () {
     resetTimeSpentOnSite();
     startCounting();
 };
+
+var animationDuration = window.innerWidth < 768 ? 10 : 15;
+container.addEventListener('touchmove', function(e) {
+  e.preventDefault(); // Prevent default scrolling
+  var touch = e.touches[0];
+  mx = Math.min(Math.max(touch.pageX - bounds.left, MARGIN), w - MARGIN);
+  my = Math.min(Math.max(touch.pageY - bounds.top, MARGIN), h - MARGIN);
+  man = true;
+});
