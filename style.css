@@ -70,7 +70,7 @@ h1.running-text {
 .seconds {
   width: 100vw;
   display: block;
-  font-size: 0.7em;
+  font-size: 0.8em;
   color: rgb(82, 82, 82);
   margin: auto;
   text-align: center;
@@ -85,6 +85,7 @@ h1.running-text {
   color: rgb(121, 121, 121);
   transition: .1s;
 }
+
 
 @media only screen and (min-width: 768px) {
   @keyframes runText {
@@ -137,5 +138,98 @@ h1.running-text {
     bottom: 10px;
     position:fixed;
     line-height: 0.8em;
+  }
+}
+
+.contactos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 5%;
+  width: 100vw;
+  z-index: 8;
+  bottom: 25%;
+}
+
+a {
+  padding: 10px;
+  text-align: center;
+  bottom: 50px;
+  text-decoration: none;
+  color: yellowgreen;
+  font-size: 0.8em;
+  cursor: none;
+  border-radius: 50px;
+  border: solid #1e1e1e;
+  border-width: thin;
+}
+
+a:hover {
+  border: solid yellowgreen;
+  background-color: #1e1e1e;
+  transition: 0.5s;
+  border-width: thin;
+  font-style: italic;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 98vw;
+  height: 96vh;
+}
+
+.centered-div {
+  display: none;
+  position: relative;
+  width: 80%;
+  height: 60%;
+}
+
+.centered-div.show {
+  display: block;
+}
+
+.centered-div.bg-image {
+  background-size: cover;
+  background-position: center;
+}
+
+@media only screen and (max-width: 767px) {
+  #container {
+    display: none;
+  }
+
+  .contactos {
+    display: grid;
+    align-items: center;
+    position: fixed;
+    width: 95vw;
+    z-index: 8;
+    bottom: 25%;
+  }
+
+  a {
+    text-align: center;
+    margin:5px;
+    text-decoration: none;
+    color: yellowgreen;
+    font-size: 2em;
+    cursor: none;
+    border-radius: 50px;
+    border: solid yellowgreen;
+    border-width: thin;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  a:hover {
+    background-color: yellowgreen;
+    color:#1e1e1e;
+    transition: 0.5s;
   }
 }

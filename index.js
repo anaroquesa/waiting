@@ -178,3 +178,11 @@ container.addEventListener('touchmove', function(e) {
   my = Math.min(Math.max(touch.pageY - bounds.top, MARGIN), h - MARGIN);
   man = true;
 });
+
+
+function replace(currentDivId, nextDivId) {
+  var currentDiv = document.getElementById(currentDivId);
+  var nextDiv = document.getElementById(nextDivId);
+  currentDiv.style.display = 'none';
+  nextDiv.style.display = 'block';
+}
