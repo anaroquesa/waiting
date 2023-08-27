@@ -193,8 +193,15 @@ a:hover {
 }
 
 .centered-div.bg-image {
+  opacity: 50%;
+  transition: .2s;
   background-size: cover;
   background-position: center;
+  background-blend-mode: multiply;
+}
+
+.centered-div.bg-image:hover {
+  opacity: 1;
 }
 
 @media only screen and (max-width: 767px) {
