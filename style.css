@@ -68,15 +68,15 @@ h1.running-text {
 }
 
 .seconds {
-  width: 100vw;
+  width: 95vw;
   display: block;
-  font-size: 0.8em;
+  font-size: 0.6em;
   color: rgb(82, 82, 82);
   margin: auto;
   text-align: center;
   bottom: 0;
   position:fixed;
-  line-height: 0.7em;
+  line-height: 0.6em;
   margin-bottom: 20px;
 }
 
@@ -205,9 +205,6 @@ a:hover {
 }
 
 @media only screen and (max-width: 767px) {
-  #container {
-    display: none;
-  }
 
   .contactos {
     display: grid;
@@ -228,15 +225,21 @@ a:hover {
     border-radius: 50px;
     border: solid yellowgreen;
     border-width: thin;
-    padding-left: 150px;
-    padding-right: 150px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
   a:hover {
     background-color: yellowgreen;
     color:#1e1e1e;
     transition: 0.5s;
+
   }
+
+  .centered-container {
+    display: none;
+  }
+
 }
