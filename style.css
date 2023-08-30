@@ -101,7 +101,7 @@ h1.running-text {
   }
 
   .bar:hover{
-    background-color:#1e1e1e;
+    background-color: #1e1e1e;
     transition: .2s;
   }
 
@@ -113,7 +113,7 @@ h1.running-text {
   h1.running-text {
     font-size: 0.8em;
     font-weight: 100;
-    color:#1e1e1e;
+    color: #1e1e1e;
     white-space: nowrap;
     margin: 0;
     animation: runText 25s linear infinite;
@@ -127,7 +127,7 @@ h1.running-text {
     margin: auto;
     text-align: center;
     bottom: 17%;
-    position:fixed;
+    position: fixed;
     line-height: 0.8em;
   }
 }
