@@ -42,26 +42,17 @@ body {
   left: 0;
   width: 100%;
   height: 30px;
-  background-color: greenyellow;
+  background-color: #1e1e1e;
+  color: greenyellow;
   display: flex;
   align-items: center;
   white-space: nowrap;
 }
 
-.bar:hover{
-  background-color:#1e1e1e;
-  transition: .2s;
-}
-
-.bar:hover h1 {
-  color:greenyellow;
-  transition: .1s;
-}
-
 h1.running-text {
   font-size: 1em;
   font-weight: 100;
-  color: #1e1e1e;
+  color: greenyellow;
   white-space: nowrap;
   margin: 0;
   animation: runText 15s linear infinite;
@@ -77,7 +68,7 @@ h1.running-text {
   bottom: 0;
   position:fixed;
   line-height: 0.6em;
-  margin-bottom: 20px;
+  bottom: 17%;
 }
 
 .seconds:hover span {
@@ -135,7 +126,7 @@ h1.running-text {
     color: rgb(82, 82, 82);
     margin: auto;
     text-align: center;
-    bottom: 10px;
+    bottom: 17%;
     position:fixed;
     line-height: 0.8em;
   }
@@ -147,30 +138,34 @@ h1.running-text {
   align-items: center;
   position: fixed;
   bottom: 5%;
-  width: 100vw;
+  width: 80%;
   z-index: 8;
-  bottom: 25%;
+  left:50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  bottom: 25px;
+
 }
 
 a {
-  padding: 10px;
+  padding: 6px;
   text-align: center;
   bottom: 50px;
   text-decoration: none;
   color: yellowgreen;
   font-size: 0.8em;
   cursor: none;
-  border-radius: 50px;
-  border: solid #1e1e1e;
+  border: solid yellowgreen;
   border-width: thin;
+  flex-grow: 1;
 }
 
 a:hover {
-  border: solid yellowgreen;
-  background-color: #1e1e1e;
+  color: #1e1e1e;
   transition: 0.5s;
   border-width: thin;
   font-style: italic;
+  background-color: yellowgreen;
 }
 
 .centered-container {
@@ -207,39 +202,37 @@ a:hover {
 @media only screen and (max-width: 767px) {
 
   .contactos {
-    display: grid;
+    display: flex;
     align-items: center;
-    position: fixed;
+    position: absolute;
+    margin:auto;
     width: 95vw;
     z-index: 8;
-    bottom: 25%;
+    bottom: 0;
+    left:50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    margin-bottom: 15px;
   }
 
   a {
     text-align: center;
-    margin:5px;
     text-decoration: none;
     color: yellowgreen;
-    font-size: 2em;
+    font-size: 1em;
     cursor: none;
-    border-radius: 50px;
+    flex-grow: 1;
     border: solid yellowgreen;
+    border-radius: 0;
     border-width: thin;
-    padding-left: 80px;
-    padding-right: 80px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   a:hover {
     background-color: yellowgreen;
     color:#1e1e1e;
-    transition: 0.5s;
-
   }
-
-  .centered-container {
-    display: none;
-  }
-
 }
