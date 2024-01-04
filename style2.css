@@ -1,0 +1,175 @@
+html,
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #1e1e1e;
+  scroll-snap-type: none;
+  cursor: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: yellowgreen;
+}
+
+#cursor {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: greenyellow;
+  position: absolute;
+  z-index: 2;
+}
+
+@keyframes runText {
+  0% {
+    transform: translateX(200%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: color: #1e1e1e;
+  display: flex;
+  align-items: center;
+  white-space: wrap;
+  z-index: 2;
+}
+
+.bar:hover{
+  background-color:  rgb(224, 224, 224);
+  transition: .2s;
+}
+
+.bar:hover h1 {
+  color:#1e1e1e;
+  transition: .1s;
+}
+
+h1.running-text {
+  font-size: 0.8em;
+  font-weight: 100;
+  color: rgb(224, 224, 224);
+  white-space: nowrap;
+  margin: 0;
+  animation: runText 25s linear infinite;
+}
+
+.bottombar {
+  position: fixed;
+  background-color:#1e1e1e;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.seconds {
+  margin-left: 10px;
+  left: 0;
+  font-size: 0.8em;
+  color: rgb(111, 111, 106);
+}
+
+.seconds:hover span {
+  font-style: italic;
+  color: yellowgreen;
+  transition: .1s;
+}
+
+.contactos {
+  margin-right: 10px;
+  align-items: center;
+  column-gap: 10px;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 8;
+
+}
+
+a {
+  text-align: center;
+  text-decoration: none;
+  color: rgb(111, 111, 106);
+  font-size: 0.8em;
+  cursor: none;
+}
+
+a:hover {
+  color: yellowgreen;
+  font-style: italic;
+}
+
+.grid {
+  margin-top: 35px;
+  margin-bottom: 45px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows:none;
+}
+
+img {
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+img:hover {
+  opacity: 1;
+  transition: 0.3s;
+}
+
+@media only screen and (max-width: 768px) {
+
+.grid {
+  margin-top: 35px;
+  margin-bottom: 45px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+img {
+  opacity: 1;
+}
+
+.bar {
+  position: fixed;
+}
+
+  @keyframes runText {
+    0% {
+      transform: translateX(50%);
+    }
+    100% {
+      transform: translateX(-150%);
+    }
+  }
+
+  .bottombar {
+    display: block;
+    padding-bottom: 10px;
+  }
+  .contactos {
+    color: greenyellow;
+  }
+
+
+}
