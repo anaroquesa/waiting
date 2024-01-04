@@ -43,7 +43,7 @@ body {
   width: 100%;
   height: 30px;
   background-color: #1e1e1e;
-  color: greenyellow;
+  color: rgb(224, 224, 224);
   display: flex;
   align-items: center;
   white-space: nowrap;
@@ -52,7 +52,7 @@ body {
 h1.running-text {
   font-size: 1em;
   font-weight: 100;
-  color: greenyellow;
+  color: rgb(224, 224, 224);
   white-space: nowrap;
   margin: 0;
   animation: runText 15s linear infinite;
@@ -65,15 +65,14 @@ h1.running-text {
   color: rgb(82, 82, 82);
   margin: auto;
   text-align: center;
-  bottom: 0;
-  position:fixed;
   line-height: 0.6em;
-  bottom: 17%;
+  position:fixed;
+  bottom: 15px;
 }
 
 .seconds:hover span {
   font-style: italic;
-  color: rgb(121, 121, 121);
+  color: yellowgreen;
   transition: .1s;
 }
 
@@ -94,7 +93,7 @@ h1.running-text {
     left: 0;
     width: 100%;
     height: 25px;
-    background-color: greenyellow;
+    background-color: rgb(224, 224, 224);
     display: flex;
     align-items: center;
     white-space: nowrap;
@@ -106,7 +105,7 @@ h1.running-text {
   }
 
   .bar:hover h1 {
-    color:greenyellow;
+    color:rgb(224, 224, 224);
     transition: .1s;
   }
 
@@ -126,7 +125,7 @@ h1.running-text {
     color: rgb(82, 82, 82);
     margin: auto;
     text-align: center;
-    bottom: 17%;
+    bottom: 5%;
     position: fixed;
     line-height: 0.8em;
   }
@@ -137,35 +136,31 @@ h1.running-text {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 5%;
-  width: 80%;
+  width: 10%;
   z-index: 8;
   left:50%;
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  bottom: 25px;
+  bottom: 5px;
 
 }
 
 a {
-  padding: 6px;
+  padding: 15px;
   text-align: center;
   bottom: 50px;
   text-decoration: none;
-  color: yellowgreen;
+  color: rgb(224, 224, 224);
   font-size: 0.8em;
   cursor: none;
-  border: solid yellowgreen;
-  border-width: thin;
   flex-grow: 1;
 }
 
 a:hover {
-  color: #1e1e1e;
+  color: yellowgreen;
   transition: 0.5s;
   border-width: thin;
   font-style: italic;
-  background-color: yellowgreen;
 }
 
 .centered-container {
@@ -206,23 +201,22 @@ a:hover {
     align-items: center;
     position: absolute;
     margin:auto;
-    width: 95vw;
-    z-index: 8;
+    width: 100vw;
     bottom: 0;
     left:50%;
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    border-top: solid white thin;
   }
 
   a {
     text-align: center;
     text-decoration: none;
-    color: yellowgreen;
+    color: rgb(224, 224, 224);
     font-size: 1em;
     cursor: none;
     flex-grow: 1;
-    border: solid yellowgreen;
     border-radius: 0;
     border-width: thin;
     padding-left: 10px;
@@ -231,8 +225,11 @@ a:hover {
     padding-bottom: 10px;
   }
 
-  a:hover {
-    background-color: yellowgreen;
-    color:#1e1e1e;
+  .seconds {
+    font-size: 1em;
+    bottom: 50px;
+    position: absolute;
+    line-height: 1.2em;
   }
+
 }
