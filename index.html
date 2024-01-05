@@ -4,6 +4,9 @@
 <title>ana roque sá</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="style2.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');
+  </style>
 <link rel="icon" type="image/png" href="images/fav.png">
 <meta name="theme-color" content="#1e1e1e">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -22,42 +25,48 @@
       <div class="centered-div bg-image" id="div4" style="background-image: url('evening.png');" onclick="replace('div4', 'div5')"></div>
       <div class="centered-div bg-image" id="div5" style="background-image: url('mania.png');" onclick="replace('div5', 'container')"></div>
   </div> -->
-  <div class="grid">
-    <img src="images/mania.jpg">
-    <img src="images/blacknwhite.jpg">
-    <img src="images/tiles.jpg">
-    <img src="images/Artboard 1.jpg" alt="">
-    <img src="images/verm.jpg">
-    <img src="images/brainn.jpg" alt="">
-    <img src="images/aaap.jpg" alt="">
-    <img src="images/330ml-13.jpg" alt="">
-    <img src="images/genes_1.jpg" alt="">
-    <img src="images/mishi.jpg" alt="">
-    <img src="images/noao.jpg" alt="">
-    <img src="images/jerico.jpg" alt="">
-    <img src="images/verde_2.jpg" alt="">
-    <img src="images/rocca.jpg" alt="">
-    <img src="images/bigbody.jpg">
-    <img src="images/aaa.JPG">
-    <img src="images/difuso.jpg">
-    <img src="images/evening.jpg">
-    <img src="images/pap_3.jpg">
-    <img src="images/che.jpg">
+  <div class="first" id="mydivon" style="display:block">
+    <div class="grid">
+      <img src="images/mania.jpg">
+      <img src="images/blacknwhite.jpg">
+      <img src="images/tiles.jpg">
+      <img src="images/Artboard 1.jpg" alt="">
+      <img src="images/verm.jpg">
+      <img src="images/brainn.jpg" alt="">
+      <img src="images/aaap.jpg" alt="">
+      <img src="images/330ml-13.jpg" alt="">
+      <img src="images/genes_1.jpg" alt="">
+      <img src="images/mishi.jpg" alt="">
+      <img src="images/noao.jpg" alt="">
+      <img src="images/jerico.jpg" alt="">
+      <img src="images/verde_2.jpg" alt="">
+      <img src="images/rocca.jpg" alt="">
+      <img src="images/bigbody.jpg">
+      <img src="images/aaa.JPG">
+      <img src="images/difuso.jpg">
+      <img src="images/evening.jpg">
+      <img src="images/pap_3.jpg">
+      <img src="images/che.jpg">
+    </div>
+  </div>
+
+  <div class="second" id="mydivoff" style="display:none">
+    <p>will be back in a minute, wait for me.</p>
   </div>
 
   <div class="bottombar">
     <div class="seconds">
-      <p>hope you are happy during these <span id="timeDisplay">0 seconds</span> of your precious life</p>
+      <p>hope it can make your eyes happy during these <span id="timeDisplay">0 seconds</span></p>
     </div>
 
     <div class="contactos">
       <a href="https://www.instagram.com/anaroquesa.design/">instagram</a>
       <a href="https://www.behance.net/anaroquesa">behance</a>
       <a href="https://github.com/anaroquesa">github</a>
-      <a href="plus.html" class="plus"> > </a>
+      <a onclick="lightMode()">daylight</a>
+      <a href="javascript:;" onmousedown="toggleDiv('mydiv');"> + </a>
     </div>
   </div>
-
   <script src="seconds.js"></script>
 </body>
 </html>
