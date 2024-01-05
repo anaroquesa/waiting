@@ -94,7 +94,6 @@ h1.running-text {
 }
 
 .contactos {
-  margin-right: 10px;
   align-items: center;
   column-gap: 10px;
   right: 0;
@@ -110,11 +109,19 @@ a {
   color: rgb(111, 111, 106);
   font-size: 0.8em;
   cursor: none;
+  padding:5px;
 }
 
 a:hover {
   color: yellowgreen;
   font-style: italic;
+}
+
+.plus {
+  color: white;
+  margin-right: 15px;
+  margin-left: 5px;
+  font-size: 20px;
 }
 
 .grid {
@@ -123,10 +130,12 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows:none;
+  grid-row-gap: 5px;
+  grid-column-gap:5px;
 }
 
 img {
-  opacity: 0.3;
+  opacity: 0.5;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -135,6 +144,15 @@ img {
 img:hover {
   opacity: 1;
   transition: 0.3s;
+}
+.second {
+  color: white;
+  font-size: 30px;
+  margin: auto;
+  text-align: center;
+}
+.second p {
+  padding: 300px;
 }
 
 @media only screen and (max-width: 768px) {
