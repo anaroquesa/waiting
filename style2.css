@@ -170,26 +170,26 @@ img {
   object-fit: cover;
   z-index: 0;
 }
+
 img:hover {
   opacity: 1;
   transition: 0.3s;
 }
+
 .second {
   color: white;
   font-size: 30px;
   margin: auto;
   text-align: center;
+  height: 90vh;
 }
 .second p {
-  padding: 300px;
+  padding-top: 45vh;
 }
 
 @media only screen and (max-width: 768px) {
 
 .grid {
-  margin-top: 35px;
-  margin-bottom: 45px;
-  display: grid;
   grid-template-columns: repeat(1, 1fr);
 }
 
@@ -220,6 +220,10 @@ img {
 
   .second p {
     padding: 5px;
+  }
+
+  #cursor {
+    display; none;
   }
 
 }
