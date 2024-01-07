@@ -211,11 +211,27 @@ img {
   }
 
   .bottombar {
-    position: absolute;
+    display: flex;
+    position:fixed;
     bottom: 0;
   }
+
+  .seconds {
+    display: none;
+  }
+
   .contactos {
-    color: greenyellow;
+  width: 100%;
+  display: flex;
+  z-index: 8;
+  margin: 0px;
+  justify-content: space-between;
+  margin-left:10px;
+  margin-right: 10px;
+  }
+
+  .contactos a {
+    padding: 0;
   }
 
   .second p {
