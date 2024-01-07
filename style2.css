@@ -191,6 +191,8 @@ img:hover {
 
 .grid {
   grid-template-columns: repeat(1, 1fr);
+  margin-top: 45px;
+  margin-bottom: 45px;
 }
 
 img {
@@ -199,6 +201,11 @@ img {
 
 .bar {
   position: fixed;
+  height: 40px;
+}
+
+h1.running-text {
+  font-size: 1.15em;
 }
 
   @keyframes runText {
@@ -211,6 +218,7 @@ img {
   }
 
   .bottombar {
+    height: 40px;
     display: flex;
     position:fixed;
     bottom: 0;
@@ -221,13 +229,14 @@ img {
   }
 
   .contactos {
-  width: 100%;
-  display: flex;
-  z-index: 8;
-  margin: 0px;
-  justify-content: space-between;
-  margin-left:10px;
-  margin-right: 10px;
+    font-size: 1.15em;
+    width: 100%;
+    display: flex;
+    z-index: 8;
+    margin: 0px;
+    justify-content: space-between;
+    margin-left:10px;
+    margin-right: 10px;
   }
 
   .contactos a {
@@ -235,13 +244,14 @@ img {
   }
 
   .second p {
-    padding: 20px;
-    font-size: 50px;
+    padding: 5px;
+    line-height: 1.1em;
+    font-size: 1.3em;
     text-align: left;
   }
 
   #cursor {
-    display; none;
+    display: none;
   }
 
 }
