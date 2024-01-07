@@ -211,15 +211,17 @@ img {
   }
 
   .bottombar {
-    display: block;
-    padding-bottom: 10px;
+    position: absolute;
+    bottom: 0;
   }
   .contactos {
     color: greenyellow;
   }
 
   .second p {
-    padding: 5px;
+    padding: 20px;
+    font-size: 50px;
+    text-align: left;
   }
 
   #cursor {
