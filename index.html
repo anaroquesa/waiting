@@ -4,6 +4,7 @@
 <title>ana roque sá</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="style2.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');
   </style>
@@ -18,7 +19,14 @@
     <h1 class="running-text">hey, i'm ana roque sá. a designer pretending to be a front end developer, <strong>working on this while you're messing it up</strong>. please <em>come back</em> later :)</h1>
   </div>
 
-  <div class="first" id="mydivon">
+  <!-- <div class="centered-container">
+    <div id = "container" style="display:block" onclick = "replace('container','div2')"></div>
+      <div class="centered-div bg-image" id="div2" style="background-image: url('blacknwhite.JPG');" onclick="replace('div2', 'div3')"></div>
+      <div class="centered-div bg-image" id="div3" style="background-image: url('bigbody.JPG');" onclick="replace('div3', 'div4')"></div>
+      <div class="centered-div bg-image" id="div4" style="background-image: url('evening.png');" onclick="replace('div4', 'div5')"></div>
+      <div class="centered-div bg-image" id="div5" style="background-image: url('mania.png');" onclick="replace('div5', 'container')"></div>
+  </div> -->
+  <div class="first" id="mydivon" style="display:block">
     <div class="grid">
       <img src="images/mania.jpg" data-aos="fade-up">
       <img src="images/blacknwhite.jpg" data-aos="fade-up">
@@ -33,7 +41,7 @@
       <img src="images/noao.jpg" data-aos="fade-up">
       <img src="images/jerico.jpg" data-aos="fade-up">
       <img src="images/verde_2.jpg" data-aos="fade-up">
-      <img src="images/rocca.jpg"data-aos="fade-up">
+      <img src="images/rocca.jpg" data-aos="fade-up">
       <img src="images/bigbody.jpg" data-aos="fade-up">
       <img src="images/medtiles.png" data-aos="fade-up">
       <img src="images/difuso.jpg" data-aos="fade-up">
@@ -44,7 +52,7 @@
   </div>
 
   <div class="second" id="mydivoff" style="display:none">
-    <p>will be back in a minute, <mark>wait for me</mark>.</p>
+    <p>will be back in a minute, wait for me.</p>
   </div>
 
   <div class="bottombar">
@@ -61,5 +69,9 @@
   </div>
 
   <script src="seconds.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </body>
 </html>

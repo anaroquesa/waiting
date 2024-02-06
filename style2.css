@@ -60,7 +60,7 @@ p::selection {
 }
 
 .x:hover {
-  color: #1e1e1e;
+  color: greenyellow;
   transition: 0.3;
 }
 
@@ -256,8 +256,4 @@ h1.running-text {
     display: none;
   }
 
-}
-
-mark {
-  color: green;
 }
