@@ -194,6 +194,11 @@ a:hover {
   opacity: 1;
 }
 
+mark {
+  background-color: white;
+  color:#1e1e1e;
+}
+
 @media only screen and (max-width: 767px) {
 
   .contactos {

@@ -14,9 +14,17 @@
 
 <body>
   <div id="cursor"></div>
+  <div class="bar d-flex">
 
-  <div class="bar">
-    <h1 class="running-text">hey, i'm ana roque sá. a designer pretending to be a front end developer, <strong>working on this while you're messing it up</strong>. please <em>come back</em> later :)</h1>
+    <a href="index.html" style="margin-left:10px;">ana roque sá</a>
+
+    <div class="contactos">
+      <a onclick="lightMode()">daylight</a>
+      <a href="javascript:;" onmousedown="toggleDiv('mydiv');">about</a>
+    </div>
+
+
+     <!-- <h1 class="running-text">hey, i'm ana roque sá. a designer pretending to be a front end developer, <strong>working on this while you're messing it up</strong>. please <em>come back</em> later :)</h1>  -->
   </div>
 
   <!-- <div class="centered-container">
@@ -26,6 +34,7 @@
       <div class="centered-div bg-image" id="div4" style="background-image: url('evening.png');" onclick="replace('div4', 'div5')"></div>
       <div class="centered-div bg-image" id="div5" style="background-image: url('mania.png');" onclick="replace('div5', 'container')"></div>
   </div> -->
+
   <div class="first" id="mydivon" style="display:block">
     <div class="grid">
       <img src="images/mania.jpg" data-aos="fade-up">
@@ -48,30 +57,35 @@
       <img src="images/evening.jpg" data-aos="fade-up">
       <img src="images/pap_3.jpg" data-aos="fade-up">
       <img src="images/che.jpg" data-aos="fade-up">
+
     </div>
   </div>
 
-  <div class="second" id="mydivoff" style="display:none">
-    <p>will be back in a minute, wait for me.</p>
-  </div>
-
-  <div class="bottombar">
+  <div id="mydivoff" style="display:none">
+    <div class="second" data-aos="fade-up">
+      <h3>a designer pretending to be a front end developer, working on this while you're messing it up <span style="color:yellowgreen;">:)</span></h3>
+      <div class="call" data-aos="fade-up">
+        <p>call me for branding, editorial, illustration, ux/ui and <span style="color:yellowgreen;"> web miracles</span>.</p>
+      </div>
+      <div class="reach" data-aos="fade-up">
+        <p>i will be very happy to make your projects come to the world and shiiiine. reach me at</p>
+        <a href="mailto:aroquesa@gmail.com">aroquesa@gmail.com</a>
+        <br><a href="https://www.behance.net/anaroquesa">behance</a>
+        <br><a href="https://github.com/anaroquesa">github</a></div>
+    </div>
+    <p style="color:yellowgreen; text-align: right; font-size: 0.8em; position:absolute; bottom: 0px; right: 10px;">@2024</p>
     <div class="seconds">
       hope it can make your eyes happy during these <span id="timeDisplay">0 seconds</span>
     </div>
-
-    <div class="contactos">
-      <a href="https://www.behance.net/anaroquesa">behance</a>
-      <a href="https://github.com/anaroquesa">github</a>
-      <a onclick="lightMode()">daylight</a>
-      <a href="javascript:;" onmousedown="toggleDiv('mydiv');">about</a>
-    </div>
   </div>
+
+
 
   <script src="seconds.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
   </script>
+
 </body>
 </html>

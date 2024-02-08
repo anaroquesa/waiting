@@ -19,8 +19,14 @@ body {
   background-color: white;
 }
 
-.light-mode h1 {
+
+.light-mode a:hover {
   color:#1e1e1e;
+  font-weight: 400;
+}
+
+.light-mode .bar:hover {
+  background-color: rgb(224, 224, 224);
 }
 
 .light-mode a {
@@ -39,8 +45,17 @@ p::selection {
   color: greenyellow;
 }
 
+h3::selection {
+  color: greenyellow;
+}
+
+h1::selection {
+  color: greenyellow;
+}
+
+
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 ::-webkit-scrollbar-track {
   background: none;
@@ -59,15 +74,14 @@ p::selection {
   z-index: 5;
 }
 
-.x:hover {
-  color: greenyellow;
-  transition: 0.3;
+#icon {
+  padding-left:5px;
+  padding-top:7px;
+  width: 18px;
+  margin:0;
 }
 
-.x::selection {
-  color:greenyellow;
-}
-
+/*
 @keyframes runText {
   0% {
     transform: translateX(160%);
@@ -75,7 +89,7 @@ p::selection {
   100% {
     transform: translateX(-100%);
   }
-}
+} */
 
 .bar {
   position: fixed;
@@ -83,80 +97,57 @@ p::selection {
   left: 0;
   width: 100%;
   height: 30px;
-  background-color: color: #1e1e1e;
   display: flex;
+  justify-content:space-between;
   align-items: center;
   white-space: wrap;
   z-index: 2;
+  padding-right: 5px;
 }
 
-.bar:hover{
-  background-color:  rgb(224, 224, 224);
-  transition: .2s;
+.bar:hover {
+  background-color: #1e1e1e;
+  transition: 0.5s;
 }
 
-.bar:hover h1 {
-  color:#1e1e1e;
-  transition: .1s;
-}
 
 h1.running-text {
   font-size: 1em;
   font-weight: 100;
   color: rgb(224, 224, 224);
   white-space: nowrap;
-  margin: 0;
   animation: runText 25s linear infinite;
 }
 
-.bottombar {
-  font-size: 1em;
-  height: 30px;
-  position: fixed;
-  background-color:#1e1e1e;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  z-index:3;
-
-}
 
 .seconds {
-  line-height: 30px;
-  align-items: center;
-  margin-left: 10px;
+  position: fixed;
+  bottom: 0px;
+  z-index:3;
+  font-size: 0.9em;
+  bottom:12px;
   color: rgb(111, 111, 106);
 }
 
 .contactos {
-  align-items: center;
   column-gap: 10px;
-  right: 0;
-  display: flex;
-  justify-content: center;
   z-index: 8;
-  margin-right: 5px;
-
 }
 
 a {
-  text-align: center;
   text-decoration: none;
   color: rgb(111, 111, 106);
   font-size: 1em;
-  padding:5px;
+  margin-right: 10px;
 }
 
 a:hover {
-  color: yellowgreen;
+  color: rgb(232, 232, 232);
+  font-weight: 100;
 }
 
 .grid {
   margin-top: 35px;
-  margin-bottom: 35px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows:none;
@@ -178,15 +169,37 @@ img:hover {
 }
 
 .second {
-  color: white;
-  font-size: 30px;
-  margin: auto;
-  text-align: center;
-  height: 90vh;
+  color: rgb(211, 211, 211);
+  font-weight: 100;
+  margin: 5%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
 }
 
-.second p {
-  padding-top: 45vh;
+.second h3 {
+  font-weight: 200;
+  width: 800px;
+  left:0;
+  font-size: 30px;
+}
+
+.second h3:hover {
+  margin-top:30px;
+  font-size: 70px;
+  line-height: 60px;;
+  transition: 0.3s linear;
+}
+
+.second .call {
+  margin-top:20px;
+  width: 200px;
+}
+
+.second .reach {
+  margin-top:20px;
+  width: 200px;
+  right:0;
 }
 
 @media only screen and (max-width: 768px) {
@@ -202,11 +215,12 @@ img {
 }
 
 .bar {
+  border-bottom: 1px solid rgb(111, 111, 106);;
   position: fixed;
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
   height: 40px;
-}
-
-h1.running-text {
   font-size: 1.15em;
 }
 
@@ -221,36 +235,42 @@ h1.running-text {
 
   .bottombar {
     height: 40px;
-    display: flex;
     position:fixed;
     bottom: 0;
-  }
-
-  .seconds {
-    display: none;
+    z-index: 3;
   }
 
   .contactos {
-    font-size: 1.15em;
-    width: 100%;
-    display: flex;
     z-index: 8;
-    margin: 0px;
-    justify-content: space-between;
-    margin-left:10px;
     margin-right: 10px;
   }
 
-  .contactos a {
-    padding: 0;
+  .second p {
+    font-size: 1em;
+    font-weight: 100;
+    z-index: 5;
+  }
+  .second {
+    display: block;
+    color: rgb(211, 211, 211);
   }
 
-  .second p {
-    padding: 5px;
+  .second h3 {
+    width: 90vw;
+    font-weight: 200;
+    margin-top:70px;
+    left:0;
+    font-size: 30px;
     line-height: 1.1em;
-    font-size: 1.3em;
-    text-align: left;
   }
+
+  .second h3:hover {
+    font-size:30px;
+    margin-top:70px;
+    font-size: 30px;
+    line-height: 1.1em;
+  }
+
 
   #cursor {
     display: none;
