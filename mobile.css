@@ -1,7 +1,7 @@
 html, body {
   min-height: 100vh;
   min-width: 100vw;
-  font-size: 1em;
+  font-size: 1.1em;
   cursor: crosshair;
   font-family: 'Telegraph';
   background-color: #1e1e1e;
@@ -25,23 +25,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  background-color: #A38CFF;
-  width: 8px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: rgb(219, 223, 207);
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background:#A38CFF;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #1e1e1e;
+display: none;
 }
 
 ::selection {
@@ -61,11 +45,12 @@ p {
   position: relative;
   padding-top: 300px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Default to 3 columns */
+  grid-template-columns: repeat(3, 1fr);
   gap: 5px;
   color: #1e1e1e;
   z-index: 1;
   margin-bottom: 40px;
+  overflow-x: auto;
 }
 
 .grid .image {
@@ -90,13 +75,14 @@ p {
 .about {
   position: fixed;
   left: 15px;
-  line-height: 1.5em;
+  right: 15px;
+  line-height: 1.1em;
+  font-family: 'Telegraph light';
   bottom: 30px;
   text-align: left;
   align-items: end;
   justify-content:end;
   color: rgb(219, 223, 207);
-  font-family: 'Telegraph light';
 }
 
 .about .part a {

@@ -294,9 +294,10 @@ function toggleDiv(divid)
     }
 }
 
+
 let currentColumns = 3; // Default number of columns
 const minColumns = 1;
-const maxColumns = 5;
+const maxColumns = 10; // Maximum number of columns
 
 // Function to update the grid columns dynamically
 function updateGridColumns(columns) {
@@ -310,41 +311,20 @@ function updateGridColumns(columns) {
 updateGridColumns(currentColumns);
 
 // Event listener for horizontal scrolling
-let lastScrollLeft = 0;
-document.querySelector('.grid').addEventListener('scroll', (event) => {
-  const grid = event.target;
-  const scrollLeft = grid.scrollLeft;
-
-  if (scrollLeft > lastScrollLeft) {
-    // Scrolling right: increase columns
-    if (currentColumns < maxColumns) {
+document.querySelector('.grid').addEventListener('wheel', (event) => {
+  // Check if horizontal scrolling (deltaX) is greater than vertical scrolling (deltaY)
+  if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+    if (event.deltaX > 0 && currentColumns < maxColumns) {
+      // Scrolling right: increase columns
       currentColumns++;
       updateGridColumns(currentColumns);
-    }
-  } else if (scrollLeft < lastScrollLeft) {
-    // Scrolling left: decrease columns
-    if (currentColumns > minColumns) {
+    } else if (event.deltaX < 0 && currentColumns > minColumns) {
+      // Scrolling left: decrease columns
       currentColumns--;
       updateGridColumns(currentColumns);
     }
+    event.preventDefault(); // Prevent default scroll behavior
   }
-
-  lastScrollLeft = scrollLeft; // Update the last scroll position
-});
-
-document.querySelector('.grid').addEventListener('wheel', (event) => {
-  const grid = event.currentTarget;
-  const style = window.getComputedStyle(grid);
-  const columns = style.getPropertyValue('grid-template-columns').split(' ').length;
-
-  // Calculate new columns count
-  let newColumns = columns;
-  if (event.deltaY > 0 && columns < 10) newColumns++; // Scroll down/right
-  if (event.deltaY < 0 && columns > 1) newColumns--; // Scroll up/left
-
-  // Update grid columns
-  grid.style.gridTemplateColumns = `repeat(${newColumns}, 1fr)`;
-  event.preventDefault(); // Prevent default scrolling
 });
 
 function lightMode() {
