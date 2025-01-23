@@ -22,6 +22,11 @@ function lightMode() {
   element.classList.toggle("light-mode");
 }
 
+function gridMode() {
+  var element = document.body;
+  element.classList.toggle("grid-mode");
+}
+
 function toggleDiv(divid)
   {
 

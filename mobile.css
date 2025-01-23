@@ -1,0 +1,315 @@
+html, body {
+  min-height: 100vh;
+  min-width: 100vw;
+  font-size: 1em;
+  cursor: crosshair;
+  font-family: 'Telegraph';
+  background-color: #1e1e1e;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: 'Telegraph';
+  src: url('pptelegraf-regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Telegraph light';
+  src: url('pptelegraf-ultralight.otf') format('opentype');
+}
+
+body {
+  margin: auto;
+}
+
+::-webkit-scrollbar {
+  background-color: #A38CFF;
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(219, 223, 207);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:#A38CFF;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1e1e1e;
+}
+
+::selection {
+  background-color:#1e1e1e; /* Set the background of selected text */
+  color: rgb(219, 223, 207);
+}
+
+.hover-text{
+display: none;
+}
+
+p {
+  color: rgb(219, 223, 207);
+}
+
+.grid {
+  position: relative;
+  padding-top: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Default to 3 columns */
+  gap: 5px;
+  color: #1e1e1e;
+  z-index: 1;
+  margin-bottom: 40px;
+}
+
+.grid .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.horizontal-shake {
+  display: inline-block;
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(5px); }
+  50% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+.about {
+  position: fixed;
+  left: 15px;
+  line-height: 1.5em;
+  bottom: 30px;
+  text-align: left;
+  align-items: end;
+  justify-content:end;
+  color: rgb(219, 223, 207);
+  font-family: 'Telegraph light';
+}
+
+.about .part a {
+  text-decoration: none;
+  text-decoration:line-through #A38CFF;
+  text-decoration-thickness: 0.5px;
+  color:#A38CFF;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  display: block;
+  margin: auto;
+  object-fit: contain;
+}
+
+#modal-image {
+  width: 100%;
+  height: 100%;
+}
+
+.arrow {
+  position: absolute;
+  bottom: 0px;
+  width: 50px;  /* Adjust size as needed */
+  height: auto;
+  z-index: 10;
+  animation: shake 0.6s ease-in-out infinite;
+  padding:15px;
+}
+
+
+#prev-arrow {
+  rotate: 90deg;
+  height: 50px;
+  left: 0px;
+  animation: shake 1s cubic-bezier(.36, .07, .19, .97) both infinite;
+}
+
+#next-arrow {
+  rotate: -90deg;
+  height: 50px;
+  right: 0px;
+  animation: shake 1s cubic-bezier(.36, .07, .19, .97) both infinite;
+}
+
+#about.active {
+  color: #1e1e1e;
+  background-color: #A38CFF;
+  border-color: #A38CFF;
+}
+
+.shuffle-btn.active {
+  background-color: yellow;
+  color: #1e1e1e;
+  border-color: yellow;
+  font-style: italic;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  bottom: 10px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: 100;
+  cursor: crosshair;
+  color: #A38CFF;
+}
+
+.bar {
+  padding-left: 50vw;
+  position: fixed;
+  right:8px;
+  top: 8px;
+  text-align: end;
+  z-index: 10;
+}
+
+.shuffle-btn {
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  color: rgb(66, 67, 64);
+  border-radius: 50px;
+  border: 0.5px solid rgb(66, 67, 64);
+  position: relative;
+  background-color: rgba(30, 30, 30, 0.2);
+  backdrop-filter: blur(3px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+ #about {
+  color:#A38CFF;
+  border: 0.5px solid #A38CFF;
+}
+
+@keyframes runText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.back {
+  position: fixed;
+  border-radius: 50px ;
+  background-color: #A38CFF;
+  height: 25px;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.mess p {
+  font-size: 1em;
+  color: #1e1e1e;
+  animation: runText 10s linear infinite;
+  white-space: nowrap;
+  line-height: 25px;
+}
+
+.intro {
+  font-size:3em;
+  font-family: 'Telegraph light';
+  color: rgb(219, 223, 207);
+  z-index: 0;
+  position: fixed;
+  top: 50px;
+  left: 8px;
+  right: 8px;
+  padding-left: 20px;
+  line-height: 0.8em;
+  filter: blur(3.5px);
+  border-radius: 50%;
+  padding: 10%;
+}
+
+.part span {
+  background-color: yellow;
+  color: #1e1e1e;
+}
+
+
+.light-mode {
+  background-color: rgb(219, 223, 207);
+  color: #1e1e1e;
+}
+
+.light-mode .shuffle-btn {
+  background-color:rgb(219, 223, 207);
+  color: rgb(175, 178, 165);
+  border: 1px solid rgb(175, 178, 165);
+}
+
+
+.light-mode .part {
+  color:  rgb(175, 178, 165);
+}
+
+.light-mode .intro {
+  color: #A38CFF;
+}
+
+.light-mode .mess p {
+  color: rgb(219, 223, 207);
+}
+.light-mode .shuffle-btn.active {
+  background-color: yellow;
+}

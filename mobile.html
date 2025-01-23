@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ana roque sá</title>
+  <link rel="stylesheet" href="mobile.css">
+  <link rel="icon" type="image/svg+xml" href="images/fav.svg">
+  <meta name="theme-color" content="#1e1e1e">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&family=Brygada+1918:ital,wght@0,400..700;1,400..700&family=Poppins:wght@100..900&display=swap');
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div class="loader-div">
+    <span class="loader">
+      <span></span>
+      <span></span>
+    </span>
+  </div>
+
+
+
+  <div class="hover-container">
+    <div class="hover-target" style="position: fixed; width:25px; margin: 8px; z-index: 100;">
+      <img src="images/fav.svg" alt="Hover Icon">
+    </div>
+    <div class="hover-text">
+      having fun? <em>reach me</em> @
+      <a href="mailto:aroquesa@gmail.com" style="text-decoration: none; color: #A38CFF;">aroquesa@gmail.com</a>
+    </div>
+  </div>
+
+
+  <div class="bar">
+    <div class="shuffle-btn" onclick="toggleActive(this); filterAll()">the mess</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterLogos()">identity</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterIllustrations()">illustration</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterWebs()">web</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterEditorials()">editorial</div>
+    <div class="shuffle-btn" onclick="lightMode()">☼</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterAbout()" id="about">about</div>
+  </div>
+
+  <div class="about" style="display: none;">
+    <div class="part">about mess? <span>well</span>, very organized messing stuff.</div>
+    <div class="part"> working on this while you're messing it up.</div>
+    <div class="part">call me for  <s>branding</s>, <s>editorial</s>, <s>illustration</s>, <s>ux/ui</s> and <s>web miracles</s>.</div>
+    <div class="part">i will be very happy to make your projects come to the world and shiiiine.</div>
+        <br><div class="part">reach me @
+        <br><a href="mailto:aroquesa@gmail.com">aroquesa@gmail.com</a>
+        or just <a href="tel:00351919269797">call me</a>, i'm nice
+        <br>
+    </div>
+    <p style="color:rgb(66, 67, 64); font-size: 12px;">
+      ©2025 ana roque sá. all rights reserved
+    </p>
+  </div>
+
+  <div class="back">
+    <div class="mess">
+      <p>welcome to my lil mess. hope it can make your eyes <span class="horizontal-shake">happy</span> during these <span id="timeDisplay">0 seconds</span></p>
+    </div>
+  </div>
+
+  <div class="intro">think about something. <br>could it fit in here?</div>
+
+  <div class="grid">
+    <img src="images/coal.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/stamp_background.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/Asset 8.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/Asset 3.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/merdifuso.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/Asset 5.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/sdsdsds.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/final_1.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/Asset 1.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/capa_preto_2.png" class="image" loading="lazy" id="editorial" data-aos="fade-up">
+    <img src="images/cdm.jpg" class="image" loading="lazy" id="editorial" data-aos="fade-up">
+    <img src="images/heyman.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/Ilustração_Sem_Título 2.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/mania.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/blacknwhite.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/tiles.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/Artboard 1.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/verm.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/brainn.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/aaap.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/330ml-13.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/genes_1.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/mishi.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/story_3.png" class="image" loading="lazy"  data-aos="fade-up">
+    <img src="images/jerico.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/verde_2.jpg" class="image" loading="lazy" data-aos="fade-up">
+    <img src="images/rocca.jpg" class="image" loading="lazy" id="editorial" data-aos="fade-up">
+    <img src="images/bigbody.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/medtiles.png" class="image" loading="lazy" id="web" data-aos="fade-up">
+    <img src="images/difuso.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/evening.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/pap_3.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/che.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/Asset 6.png" class="image" loading="lazy" id="web" data-aos="fade-up">
+    <img src="images/Asset 7.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/Asset 4@2000x.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/step2.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/step22.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/step222.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+  </div>
+
+
+
+
+  <div id="modal" class="modal">
+    <span id="close-btn" class="close-btn">&times;</span>
+    <img src="images/seta.svg" id="prev-arrow" class="arrow" alt="Previous">
+    <img src="images/seta.svg" id="next-arrow" class="arrow" alt="Next">
+    <img id="modal-image" class="modal-content" src="" alt="Modal Content">
+  </div>
+
+
+
+  <script src="mobile.js"></script>
+
+</body>
+</html>

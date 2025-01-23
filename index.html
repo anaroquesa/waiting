@@ -1,101 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-<title>ana roque sá</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="style2.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" />
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ana roque sá</title>
+  <link rel="stylesheet" href="boom.css">
+  <link rel="icon" type="image/svg+xml" href="images/fav.svg">
+  <meta name="theme-color" content="#1e1e1e">
+  <script>
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      window.location.href = "mobile.html";
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&family=Brygada+1918:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&family=Brygada+1918:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
   </style>
-<link rel="icon" type="image/png" href="images/fav.png">
-<meta name="theme-color" content="#1e1e1e">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
 
 <body>
-  <div id="cursor"></div>
-  <div class="bar d-flex">
 
-    <a href="index.html" style="margin-left:10px;">ana roque sá</a>
-
-    <div class="contactos">
-      <a onclick="lightMode()">daylight</a>
-      <a href="javascript:;" onmousedown="toggleDiv('mydiv');">about</a>
-    </div>
-
-
-     <!-- <h1 class="running-text">hey, i'm ana roque sá. a designer pretending to be a front end developer, <strong>working on this while you're messing it up</strong>. please <em>come back</em> later :)</h1>  -->
+  <div class="loader-div">
+    <span class="loader">
+      <span></span>
+      <span></span>
+    </span>
   </div>
 
-  <!-- <div class="centered-container">
-    <div id = "container" style="display:block" onclick = "replace('container','div2')"></div>
-      <div class="centered-div bg-image" id="div2" style="background-image: url('blacknwhite.JPG');" onclick="replace('div2', 'div3')"></div>
-      <div class="centered-div bg-image" id="div3" style="background-image: url('bigbody.JPG');" onclick="replace('div3', 'div4')"></div>
-      <div class="centered-div bg-image" id="div4" style="background-image: url('evening.png');" onclick="replace('div4', 'div5')"></div>
-      <div class="centered-div bg-image" id="div5" style="background-image: url('mania.png');" onclick="replace('div5', 'container')"></div>
-  </div> -->
-
-  <div class="first" id="mydivon" style="display:block">
-    <div class="grid">
-      <img src="images/stamp_background.png" data-aos="fade-up">
-      <img src="images/Asset 8.png" data-aos="fade-up">
-      <img src="images/Asset 3.png" data-aos="fade-up">
-      <img src="images/Asset 5.png" data-aos="fade-up">
-      <img src="images/final_1.png" data-aos="fade-up">
-      <img src="images/Asset 1.png" data-aos="fade-up">
-      <img src="images/capa_preto_2.png" data-aos="fade-up">
-      <img src="images/Ilustração_Sem_Título 2.jpg" data-aos="fade-up">
-      <img src="images/Asset 4.png" data-aos="fade-up">
-      <img src="images/Ilustração_Sem_Título 3.jpg" data-aos="fade-up">
-      <img src="images/mania.jpg" data-aos="fade-up">
-      <img src="images/blacknwhite.jpg" data-aos="fade-up">
-      <img src="images/tiles.jpg" data-aos="fade-up">
-      <img src="images/Artboard 1.jpg" data-aos="fade-up">
-      <img src="images/verm.jpg" data-aos="fade-up">
-      <img src="images/brainn.jpg" data-aos="fade-up">
-      <img src="images/aaap.jpg" data-aos="fade-up">
-      <img src="images/330ml-13.jpg" data-aos="fade-up">
-      <img src="images/genes_1.jpg" data-aos="fade-up">
-      <img src="images/mishi.jpg" data-aos="fade-up">
-      <img src="images/noao.jpg" data-aos="fade-up">
-      <img src="images/jerico.jpg" data-aos="fade-up">
-      <img src="images/verde_2.jpg" data-aos="fade-up">
-      <img src="images/rocca.jpg" data-aos="fade-up">
-      <img src="images/bigbody.jpg" data-aos="fade-up">
-      <img src="images/medtiles.png" data-aos="fade-up">
-      <img src="images/difuso.jpg" data-aos="fade-up">
-      <img src="images/evening.jpg" data-aos="fade-up">
-      <img src="images/pap_3.jpg" data-aos="fade-up">
-      <img src="images/che.jpg" data-aos="fade-up">
-
-    </div>
+  <div class="hover-container">
+    <div class="hover-target"><img src="images/fav.svg" style="width:23px; padding-left: 10px; padding-top: 10px;"></div>
+    <div class="hover-text">having fun? <em>reach me</em> @ <a href="mailto:aroquesa@gmail.com" style="text-decoration: none; color: #A38CFF;">aroquesa@gmail.com</a></div>
   </div>
 
-  <div id="mydivoff" style="display:none">
-    <div class="second" data-aos="fade-up">
-      <h3>a designer pretending to be a front end developer, working on this while you're messing it up <span style="color:yellowgreen;">:)</span></h3>
-      <div class="call" data-aos="fade-up">
-        <p>call me for branding, editorial, illustration, ux/ui and <span style="color:yellowgreen;"> web miracles</span>.</p>
-      </div>
-      <div class="reach" data-aos="fade-up">
-        <p>i will be very happy to make your projects come to the world and shiiiine. reach me at</p>
-        <a href="mailto:aroquesa@gmail.com">aroquesa@gmail.com</a>
-        <br><a href="https://www.behance.net/anaroquesa">behance</a>
-        <br><a href="https://github.com/anaroquesa">github</a></div>
-    </div>
-    <p style="color:yellowgreen; text-align: right; font-size: 0.8em; position:absolute; bottom: 0px; right: 10px;">@2024</p>
-    <div class="seconds">
-      hope it can make your eyes happy during these <span id="timeDisplay">0 seconds</span>
-    </div>
+  <div class="bar">
+    <div class="shuffle-btn" onclick="gridMode()">grid it</div>
+    <div class="shuffle-btn" id="shuffle-btn" onclick="toggleActive(this)">mix</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterLogos()">identity</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterIllustrations()">illustration</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterWebs()">web</div>
+    <div class="shuffle-btn" onclick="toggleActive(this); filterEditorials()">editorial</div>
+    <div class="shuffle-btn" onclick="lightMode()">☼</div>
+    <div class="shuffle-btn" onclick="showAbout()" id="about">about</div>
+  </div>
+
+  <div class="grid">
+    <img src="images/coal.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/stamp_background.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/Asset 8.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/Asset 3.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/merdifuso.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/Asset 5.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/sdsdsds.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/final_1.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/Asset 1.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/capa_preto_2.png" class="image" loading="lazy" id="editorial" data-aos="fade-up">
+    <img src="images/cdm.jpg" class="image" loading="lazy" id="editorial" data-aos="fade-up">
+    <img src="images/heyman.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/Ilustração_Sem_Título 2.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/mania.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/blacknwhite.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/tiles.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/Artboard 1.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/verm.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/brainn.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/aaap.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/330ml-13.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/genes_1.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/mishi.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/story_3.png" class="image" loading="lazy"  data-aos="fade-up">
+    <img src="images/jerico.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/verde_2.jpg" class="image" loading="lazy" data-aos="fade-up">
+    <img src="images/rocca.jpg" class="image" loading="lazy" id="editorial" data-aos="fade-up">
+    <img src="images/bigbody.jpg" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/medtiles.png" class="image" loading="lazy" id="web" data-aos="fade-up">
+    <img src="images/difuso.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/evening.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/pap_3.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/che.jpg" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/Asset 6.png" class="image" loading="lazy" id="web" data-aos="fade-up">
+    <img src="images/Asset 7.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+    <img src="images/Asset 4@2000x.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/step2.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/step22.png" class="image" loading="lazy" id="logo" data-aos="fade-up">
+    <img src="images/step222.png" class="image" loading="lazy" id="illustration" data-aos="fade-up">
+  </div>
+
+  <div id="modal" class="modal">
+    <span id="close-btn" class="close-btn">&times;</span>
+    <img src="images/seta.svg" id="prev-arrow" class="arrow" alt="Previous">
+    <img src="images/seta.svg" id="next-arrow" class="arrow" alt="Next">
+    <img id="modal-image" class="modal-content" src="">
   </div>
 
 
+    <p style="font-size: 0.8em; position:absolute; left: 10px; bottom: 0px;">hope it can make your eyes <span class="horizontal-shake">happy</span> during these <span id="timeDisplay">0 seconds</span></p>
+    <p style="font-size: 0.8em; position:absolute; right: 10px; bottom: 0px;">©2025 ana roque sá. all rights reserved</p>
 
-  <script src="seconds.js"></script>
+
+    <script src="seconds.js"></script>
+  <script src="boom.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
   </script>
+
 
 </body>
 </html>
