@@ -44,6 +44,7 @@ p {
 .grid {
   position: relative;
   padding-top: 300px;
+  margin: 8px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 5px;
@@ -51,6 +52,7 @@ p {
   z-index: 1;
   margin-bottom: 40px;
   overflow-x: auto;
+  max-width: calc(100% - 16px);
 }
 
 .grid .image {
