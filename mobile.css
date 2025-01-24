@@ -7,7 +7,10 @@ html, body {
   background-color: #1e1e1e;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @font-face {
@@ -29,7 +32,7 @@ display: none;
 }
 
 ::selection {
-  background-color:#1e1e1e; /* Set the background of selected text */
+  background-color:#1e1e1e;
   color: rgb(219, 223, 207);
 }
 
@@ -124,7 +127,7 @@ p {
 .arrow {
   position: absolute;
   bottom: 0px;
-  width: 50px;  /* Adjust size as needed */
+  width: 50px;
   height: auto;
   z-index: 10;
   animation: shake 0.6s ease-in-out infinite;
@@ -216,7 +219,7 @@ p {
 }
 
 
- #about {
+#about {
   color:#A38CFF;
   border: 0.5px solid #A38CFF;
 }
@@ -254,17 +257,17 @@ p {
 }
 
 .intro {
-  font-size:3em;
-  font-family: 'Telegraph light';
-  color: rgb(219, 223, 207);
+  font-size: 1.1em;
+  font-family: 'Telegraph';
+  color: rgb(66, 67, 64);
   z-index: 0;
+  line-height: 1em;
   position: fixed;
   top: 50px;
   left: 10px;
   right:10px;
   padding-left: 20px;
-  line-height: 0.8em;
-  filter: blur(3.5px);
+  filter: blur(2px);
   border-radius: 50%;
   padding: 10%;
 }
@@ -298,6 +301,7 @@ p {
 .light-mode .mess p {
   color: rgb(219, 223, 207);
 }
+
 .light-mode .shuffle-btn.active {
   background-color: yellow;
 }

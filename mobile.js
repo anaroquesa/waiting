@@ -23,7 +23,7 @@ const limitYMin = screenHeight * margin;
 const limitYMax = screenHeight * (1 - margin);
 
 const imageProperties = Array.from(images).map(image => {
-  const imageWidth = image.width || 150; // Default width (in case image width isn't yet calculated)
+  const imageWidth = image.width || 150; // Default width
   const imageHeight = image.height || 150; // Default height
   return {
     element: image,
@@ -46,8 +46,8 @@ function preloadImages() {
   });
 }
 
+// Handle mouse movement
 document.addEventListener('mousemove', (event) => {
-  // Check if the mouse is within the defined boundaries
   if (
     event.clientX >= limitXMin &&
     event.clientX <= limitXMax &&
@@ -59,8 +59,14 @@ document.addEventListener('mousemove', (event) => {
   }
 });
 
+// Handle touch movement for mobile
+document.addEventListener('touchmove', (event) => {
+  const touch = event.touches[0];
+  mouseX = touch.clientX;
+  mouseY = touch.clientY;
+});
 
-// Open the modal with the clicked image
+// Open modal
 images.forEach((image, index) => {
   image.addEventListener('click', () => {
     currentIndex = index;
@@ -69,41 +75,32 @@ images.forEach((image, index) => {
   });
 });
 
-// Close the modal when the close button is clicked
+// Close modal
 closeBtn.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
-// Close the modal if the user clicks outside the image
 window.addEventListener('click', (event) => {
   if (event.target === modal || event.target === modalImage) {
     modal.style.display = 'none';
   }
 });
 
-// Add event listeners for the arrows
-document.getElementById('prev-arrow').addEventListener('click', () => {
-  showPreviousImage();
-});
+// Navigate images in modal
+document.getElementById('prev-arrow').addEventListener('click', showPreviousImage);
+document.getElementById('next-arrow').addEventListener('click', showNextImage);
 
-document.getElementById('next-arrow').addEventListener('click', () => {
-  showNextImage();
-});
-
-
-// Function to show the next image
 function showNextImage() {
   currentIndex = (currentIndex + 1) % images.length;
   modalImage.src = images[currentIndex].src;
 }
 
-// Function to show the previous image
 function showPreviousImage() {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   modalImage.src = images[currentIndex].src;
 }
 
-
+// Shuffle images
 function shuffleImages() {
   resetFilters();
   imageProperties.forEach((image) => {
@@ -112,7 +109,7 @@ function shuffleImages() {
   });
 }
 
-// Scroll to switch images in the modal
+// Scroll to navigate modal
 window.addEventListener('wheel', (event) => {
   if (modal.style.display === 'flex') {
     if (event.deltaY > 0) {
@@ -120,27 +117,32 @@ window.addEventListener('wheel', (event) => {
     } else {
       showPreviousImage();
     }
+    event.preventDefault();
   }
 });
 
-// Swipe detection for mobile devices
+// Swipe navigation for mobile
 let touchStartX = 0;
+const swipeThreshold = 50; // Minimum swipe distance
+
 window.addEventListener('touchstart', (event) => {
   touchStartX = event.touches[0].clientX;
 });
 
 window.addEventListener('touchend', (event) => {
   const touchEndX = event.changedTouches[0].clientX;
+  const distance = touchEndX - touchStartX;
+
   if (modal.style.display === 'flex') {
-    if (touchEndX < touchStartX) {
+    if (distance < -swipeThreshold) {
       showNextImage();
-    } else if (touchEndX > touchStartX) {
+    } else if (distance > swipeThreshold) {
       showPreviousImage();
     }
   }
 });
 
-// Arrow key navigation
+// Keyboard navigation
 window.addEventListener('keydown', (event) => {
   if (modal.style.display === 'flex') {
     if (event.key === 'ArrowRight') {
@@ -151,155 +153,52 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-
 // Filter functions
 function filterAbout() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'block';
-  }
+  toggleImagesDisplay('.about', true);
 }
 
 function filterAll() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'block';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
+  toggleImagesDisplay('.image', false);
 }
 
-
 function filterLogos() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const logos = document.querySelectorAll('#logo');
-  logos.forEach(logo => {
-    logo.style.display = 'block';
-  });
+  toggleImagesDisplay('#logo', false);
 }
 
 function filterIllustrations() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const illustrations = document.querySelectorAll('#illustration');
-  illustrations.forEach(illustration => {
-    illustration.style.display = 'block';
-  });
+  toggleImagesDisplay('#illustration', false);
 }
 
 function filterEditorials() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const editorials = document.querySelectorAll('#editorial');
-  editorials.forEach(editorial => {
-    editorial.style.display = 'block';
-  });
+  toggleImagesDisplay('#editorial', false);
 }
 
 function filterWebs() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
+  toggleImagesDisplay('#web', false);
+}
+
+function toggleImagesDisplay(selector, aboutOnly) {
+  images.forEach(image => image.style.display = 'none');
   const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const webs = document.querySelectorAll('#web');
-  webs.forEach(web => {
-    web.style.display = 'block';
+  if (about) about.style.display = aboutOnly ? 'block' : 'none';
+  document.querySelectorAll(selector).forEach(element => {
+    element.style.display = 'block';
   });
 }
 
 // Toggle active button
 function toggleActive(button) {
-  // Remove active class from all buttons
   const buttons = document.querySelectorAll('.shuffle-btn');
   buttons.forEach(btn => btn.classList.remove('active'));
-
-  // Add active class to the clicked button
   button.classList.add('active');
 }
 
-// Preload images when the page starts
-preloadImages();
-
-
-var seconds = 0;
-var el = document.getElementById('timeDisplay');
-
-function incrementSeconds() {
-    seconds += 1;
-    el.innerText = seconds + " seconds";
-}
-
-var cancel = setInterval(incrementSeconds, 1000);
-
-$(document).ready(function() {
-  $(document).on('mousemove', function(e) {
-    $('#cursor').css({
-      left: e.pageX - 15,
-      top: e.pageY - 10
-    });
-  })
-});
-
-function lightMode() {
-  var element = document.body;
-  element.classList.toggle("light-mode");
-}
-
-function toggleDiv(divid)
-  {
-
-    varon = divid + 'on';
-    varoff = divid + 'off';
-
-    if(document.getElementById(varon).style.display == 'block')
-    {
-    document.getElementById(varon).style.display = 'none';
-    document.getElementById(varoff).style.display = 'block';
-    }
-
-    else
-    {
-    document.getElementById(varoff).style.display = 'none';
-    document.getElementById(varon).style.display = 'block'
-    }
-}
-
-
+// Dynamic grid column adjustment
 let currentColumns = 3; // Default number of columns
 const minColumns = 1;
-const maxColumns = 10; // Maximum number of columns
+const maxColumns = 10;
 
-// Function to update the grid columns dynamically
 function updateGridColumns(columns) {
   const grid = document.querySelector('.grid');
   if (grid) {
@@ -307,27 +206,22 @@ function updateGridColumns(columns) {
   }
 }
 
-// Initialize the grid with the default number of columns
-updateGridColumns(currentColumns);
-
-// Event listener for horizontal scrolling
 document.querySelector('.grid').addEventListener('wheel', (event) => {
-  // Check if horizontal scrolling (deltaX) is greater than vertical scrolling (deltaY)
   if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
     if (event.deltaX > 0 && currentColumns < maxColumns) {
-      // Scrolling right: increase columns
       currentColumns++;
-      updateGridColumns(currentColumns);
     } else if (event.deltaX < 0 && currentColumns > minColumns) {
-      // Scrolling left: decrease columns
       currentColumns--;
-      updateGridColumns(currentColumns);
     }
-    event.preventDefault(); // Prevent default scroll behavior
+    updateGridColumns(currentColumns);
+    event.preventDefault();
   }
 });
 
+// Light mode toggle
 function lightMode() {
-  var element = document.body;
-  element.classList.toggle("light-mode");
+  document.body.classList.toggle('light-mode');
 }
+
+// Preload images when the page loads
+preloadImages();
