@@ -10,10 +10,10 @@ let mouseY = 0;
 
 const desiredDistance = 80;
 
-// Margin limits (30% of the screen size)
-const margin = 0.3;
+// Margin limits (25% of the screen size)
+const margin = 0.25;
 
-// Calculate the boundaries (70% of screen size)
+// Calculate the boundaries (75% of screen size)
 const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;
 
@@ -119,6 +119,10 @@ function resetFilters() {
   images.forEach(image => {
     image.style.display = 'block'; // Show all images
   });
+  const about = document.querySelector('.about');
+  if (about) {
+    about.style.display = 'none';
+  }
 }
 
 function shuffleImages() {
@@ -128,6 +132,7 @@ function shuffleImages() {
     image.y = Math.random() * (screenHeight - image.height);
   });
 }
+
 
 // Scroll to switch images in the modal
 window.addEventListener('wheel', (event) => {
@@ -217,7 +222,7 @@ function updateImagePositions() {
     image.element.style.top = `${image.y}px`;
 
     // Limit speed for smoother movement
-    const speedLimit = 2;
+    const speedLimit = 1;
     if (image.velocityX > speedLimit) image.velocityX = speedLimit;
     if (image.velocityY > speedLimit) image.velocityY = speedLimit;
   });
@@ -242,10 +247,20 @@ window.addEventListener('load', () => {
     image.element.classList.add('loaded');
   });
 
-  updateImagePositions(); // Start the animation after centering
+  updateImagePositions();
 });
 
-// Filter functions
+function filterAbout() {
+  const images = document.querySelectorAll('.image');
+  images.forEach(image => {
+    image.style.display = 'none';
+  });
+
+  const about = document.querySelector('.about');
+  if (about) {
+    about.style.display = 'block';
+  }
+}
 
 function filterLogos() {
   const images = document.querySelectorAll('.image');
@@ -256,6 +271,10 @@ function filterLogos() {
   logos.forEach(logo => {
     logo.style.display = 'block';
   });
+  const about = document.querySelector('.about');
+  if (about) {
+    about.style.display = 'none';
+  }
 }
 
 function filterIllustrations() {
@@ -267,6 +286,10 @@ function filterIllustrations() {
   illustrations.forEach(illustration => {
     illustration.style.display = 'block';
   });
+  const about = document.querySelector('.about');
+  if (about) {
+    about.style.display = 'none';
+  }
 }
 
 function filterEditorials() {
@@ -278,6 +301,10 @@ function filterEditorials() {
   editorials.forEach(editorial => {
     editorial.style.display = 'block';
   });
+  const about = document.querySelector('.about');
+  if (about) {
+    about.style.display = 'none';
+  }
 }
 
 function filterWebs() {
@@ -289,17 +316,111 @@ function filterWebs() {
   webs.forEach(web => {
     web.style.display = 'block';
   });
+  const about = document.querySelector('.about');
+  if (about) {
+    about.style.display = 'none';
+  }
 }
 
-// Toggle active button
 function toggleActive(button) {
-  // Remove active class from all buttons
+
   const buttons = document.querySelectorAll('.shuffle-btn');
   buttons.forEach(btn => btn.classList.remove('active'));
 
-  // Add active class to the clicked button
+
   button.classList.add('active');
+
+  const mixDiv = document.querySelector('.mix');
+  if (button.id === 'about') {
+    mixDiv.style.display = 'none';
+  } else {
+    mixDiv.style.display = 'flex';
+  }
 }
 
-// Preload images when the page starts
 preloadImages();
+let isGridActive = false;
+
+const gridBtn = document.getElementById('grid-btn');
+const mixBtn = document.querySelector('.mix-btn');
+const container = document.querySelector('.grid');
+
+// Atualiza o estado do botão "mix"
+function updateMixButtonState(disabled) {
+  if (mixBtn) {
+    mixBtn.style.filter = disabled ? 'blur(1px)' : 'none';
+    mixBtn.style.opacity = disabled ? '0.5' : '1';
+    mixBtn.style.pointerEvents = disabled ? 'none' : 'auto';
+    mixBtn.style.cursor = disabled ? 'not-allowed' : 'pointer';
+  }
+}
+
+function enableGridLayout() {
+  isGridActive = true;
+  gridBtn.textContent = 'shuffle it';
+  container.style.display = 'grid';
+  container.style.gap = '3px';
+
+  updateMixButtonState(true);
+
+  imageProperties.forEach(image => {
+    Object.assign(image.element.style, {
+      position: 'static',
+      transition: 'opacity 0.5s ease, transform 0.5s ease',
+      opacity: '0',
+      transform: 'scale(0.8)',
+    });
+
+    setTimeout(() => {
+      image.element.style.opacity = '1';
+      image.element.style.transform = 'scale(1)';
+    }, 100);
+  });
+}
+
+function enableShuffle() {
+  isGridActive = false;
+  gridBtn.textContent = gridBtn.dataset.initialText;
+  container.style.display = 'block';
+
+  updateMixButtonState(false); // Ativa o botão "mix"
+
+  imageProperties.forEach(image => {
+    Object.assign(image.element.style, {
+      position: 'absolute',
+      transition: 'left 0.5s ease, top 0.5s ease',
+    });
+
+    image.x = Math.random() * (window.innerWidth - image.width);
+    image.y = Math.random() * (window.innerHeight - image.height);
+    image.element.style.left = `${image.x}px`;
+    image.element.style.top = `${image.y}px`;
+  });
+}
+
+// Alternar entre os modos
+gridBtn.dataset.initialText = gridBtn.textContent;
+gridBtn.addEventListener('click', () => (isGridActive ? enableShuffle() : enableGridLayout()));
+
+// Shuffle manual sem afetar o modo grelha
+function shuffleImages() {
+  if (isGridActive) return;
+
+  imageProperties.forEach(image => {
+    image.x = Math.random() * (window.innerWidth - image.width);
+    image.y = Math.random() * (window.innerHeight - image.height);
+    image.element.style.left = `${image.x}px`;
+    image.element.style.top = `${image.y}px`;
+  });
+}
+
+
+function allImagesAreVisible() {
+  imageProperties.forEach(image => {
+    if (!container.contains(image.element)) {
+      container.appendChild(image.element);
+    }
+    image.element.style.opacity = '1';
+    image.element.style.display = 'block'; // Ensure visibility
+  });
+}

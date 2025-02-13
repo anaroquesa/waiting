@@ -186,3 +186,7 @@ function replace(currentDivId, nextDivId) {
   currentDiv.style.display = 'none';
   nextDiv.style.display = 'block';
 }
+
+function gridMode () {
+
+}

@@ -286,32 +286,67 @@ function toggleDiv(divid)
     }
 }
 
-
 let currentColumns = 3; // Default number of columns
-const minColumns = 1;
-const maxColumns = 10; // Maximum number of columns
-let touchEndX = 0;
+const minColumns = 1;   // Minimum number of columns
+const maxColumns = 10;  // Maximum number of columns
 
-// Event listener for touchstart
-document.querySelector('.grid').addEventListener('touchstart', (event) => {
-  touchStartX = event.touches[0].clientX; // Get the starting X position of the touch
-});
-
-// Event listener for touchend
-document.querySelector('.grid').addEventListener('touchend', (event) => {
-  touchEndX = event.changedTouches[0].clientX; // Get the ending X position of the touch
-
-  // Detect horizontal swipe
-  if (Math.abs(touchEndX - touchStartX) > 50) { // Minimum swipe distance
-    if (touchEndX < touchStartX && currentColumns < maxColumns) {
-      // Swipe left: increase columns
-      currentColumns++;
-      updateGridColumns(currentColumns);
-    } else if (touchEndX > touchStartX && currentColumns > minColumns) {
-      // Swipe right: decrease columns
-      currentColumns--;
-      updateGridColumns(currentColumns);
-    }
+// Function to update the grid columns dynamically
+function updateGridColumns(columns) {
+  const grid = document.querySelector('.grid');
+  if (grid) {
+    grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
   }
-});
-//hnghn
+}
+
+// Initialize the grid with the default number of columns
+updateGridColumns(currentColumns);
+
+// Event listener for horizontal scrolling (desktop)
+const grid = document.querySelector('.grid');
+
+if (grid) {
+  // Mouse wheel event for desktop
+  grid.addEventListener('wheel', (event) => {
+    // Stop if the scroll is primarily vertical
+    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+      return; // Exit the function to ignore vertical scrolling
+    }
+
+    // Handle horizontal scrolling
+    if (event.deltaX > 0 && currentColumns < maxColumns) {
+      currentColumns++;
+    } else if (event.deltaX < 0 && currentColumns > minColumns) {
+      currentColumns--;
+    }
+
+    // Update the grid columns and prevent default behavior
+    updateGridColumns(currentColumns);
+    event.preventDefault();
+  });
+
+  // Touch event for mobile (swipe left/right)
+  let touchStartX = 0;
+  grid.addEventListener('touchstart', (event) => {
+    touchStartX = event.touches[0].clientX; // Capture the starting touch position
+  });
+
+  grid.addEventListener('touchmove', (event) => {
+    if (!touchStartX) return;
+
+    const touchEndX = event.touches[0].clientX;
+    const diffX = touchStartX - touchEndX;
+
+    if (Math.abs(diffX) > 10) { // Avoid registering small accidental touches
+      if (diffX > 0 && currentColumns < maxColumns) {
+        currentColumns++; // Swipe left: increase columns
+      } else if (diffX < 0 && currentColumns > minColumns) {
+        currentColumns--; // Swipe right: decrease columns
+      }
+
+      updateGridColumns(currentColumns);
+      touchStartX = 0; // Reset the start position after movement
+    }
+  });
+} else {
+  console.error("Grid element with class 'grid' not found.");
+}
