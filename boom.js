@@ -348,10 +348,8 @@ const container = document.querySelector('.grid');
 // Atualiza o estado do botão "mix"
 function updateMixButtonState(disabled) {
   if (mixBtn) {
-    mixBtn.style.filter = disabled ? 'blur(1px)' : 'none';
-    mixBtn.style.opacity = disabled ? '0.5' : '1';
+    mixBtn.style.opacity = disabled ? '0.4' : '1';
     mixBtn.style.pointerEvents = disabled ? 'none' : 'auto';
-    mixBtn.style.cursor = disabled ? 'not-allowed' : 'pointer';
   }
 }
 
