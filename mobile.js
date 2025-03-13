@@ -59,7 +59,6 @@ document.addEventListener('mousemove', (event) => {
   }
 });
 
-
 // Open the modal with the clicked image
 images.forEach((image, index) => {
   image.addEventListener('click', () => {
@@ -90,7 +89,6 @@ document.getElementById('next-arrow').addEventListener('click', () => {
   showNextImage();
 });
 
-
 // Function to show the next image
 function showNextImage() {
   currentIndex = (currentIndex + 1) % images.length;
@@ -102,7 +100,6 @@ function showPreviousImage() {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   modalImage.src = images[currentIndex].src;
 }
-
 
 function shuffleImages() {
   resetFilters();
@@ -151,105 +148,15 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-
-// Filter functions
-function filterAbout() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'block';
-  }
-}
-
-function filterAll() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'block';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-}
-
-
-function filterLogos() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const logos = document.querySelectorAll('#logo');
-  logos.forEach(logo => {
-    logo.style.display = 'block';
-  });
-}
-
-function filterIllustrations() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const illustrations = document.querySelectorAll('#illustration');
-  illustrations.forEach(illustration => {
-    illustration.style.display = 'block';
-  });
-}
-
-function filterEditorials() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const editorials = document.querySelectorAll('#editorial');
-  editorials.forEach(editorial => {
-    editorial.style.display = 'block';
-  });
-}
-
-function filterWebs() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const webs = document.querySelectorAll('#web');
-  webs.forEach(web => {
-    web.style.display = 'block';
-  });
-}
-
 // Toggle active button
 function toggleActive(button) {
-  // Remove active class from all buttons
   const buttons = document.querySelectorAll('.shuffle-btn');
   buttons.forEach(btn => btn.classList.remove('active'));
-
-  // Add active class to the clicked button
   button.classList.add('active');
 }
 
 // Preload images when the page starts
 preloadImages();
-
 
 var seconds = 0;
 var el = document.getElementById('timeDisplay');
@@ -261,92 +168,80 @@ function incrementSeconds() {
 
 var cancel = setInterval(incrementSeconds, 1000);
 
-
 function lightMode() {
   var element = document.body;
   element.classList.toggle("light-mode");
 }
 
-function toggleDiv(divid)
-  {
+function toggleDiv(divid) {
+  var on = divid + 'on';
+  var off = divid + 'off';
 
-    varon = divid + 'on';
-    varoff = divid + 'off';
-
-    if(document.getElementById(varon).style.display == 'block')
-    {
-    document.getElementById(varon).style.display = 'none';
-    document.getElementById(varoff).style.display = 'block';
-    }
-
-    else
-    {
-    document.getElementById(varoff).style.display = 'none';
-    document.getElementById(varon).style.display = 'block'
-    }
+  if (document.getElementById(on).style.display == 'block') {
+    document.getElementById(on).style.display = 'none';
+    document.getElementById(off).style.display = 'block';
+  } else {
+    document.getElementById(off).style.display = 'none';
+    document.getElementById(on).style.display = 'block';
+  }
 }
 
-let currentColumns = 3; // Default number of columns
-const minColumns = 1;   // Minimum number of columns
-const maxColumns = 10;  // Maximum number of columns
+// Atualização para zoom em vez de scroll para os lados
+let currentColumns = 3;
+const minColumns = 1;
+const maxColumns = 10;
+const grid = document.querySelector('.grid');
 
-// Function to update the grid columns dynamically
+// Função para atualizar as colunas do grid
 function updateGridColumns(columns) {
-  const grid = document.querySelector('.grid');
   if (grid) {
     grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
   }
 }
 
-// Initialize the grid with the default number of columns
-updateGridColumns(currentColumns);
-
-// Event listener for horizontal scrolling (desktop)
-const grid = document.querySelector('.grid');
-
-if (grid) {
-  // Mouse wheel event for desktop
-  grid.addEventListener('wheel', (event) => {
-    // Stop if the scroll is primarily vertical
-    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-      return; // Exit the function to ignore vertical scrolling
+// Evento para Ctrl + Scroll no desktop
+window.addEventListener('wheel', (event) => {
+  if (event.ctrlKey) { // Verifica se a tecla Ctrl está pressionada
+    if (event.deltaY < 0 && currentColumns < maxColumns) {
+      currentColumns++; // Zoom in -> Aumenta as colunas
+    } else if (event.deltaY > 0 && currentColumns > minColumns) {
+      currentColumns--; // Zoom out -> Diminui as colunas
     }
-
-    // Handle horizontal scrolling
-    if (event.deltaX > 0 && currentColumns < maxColumns) {
-      currentColumns++;
-    } else if (event.deltaX < 0 && currentColumns > minColumns) {
-      currentColumns--;
-    }
-
-    // Update the grid columns and prevent default behavior
     updateGridColumns(currentColumns);
     event.preventDefault();
-  });
+  }
+});
 
-  // Touch event for mobile (swipe left/right)
-  let touchStartX = 0;
-  grid.addEventListener('touchstart', (event) => {
-    touchStartX = event.touches[0].clientX; // Capture the starting touch position
-  });
+// Evento para pinch-to-zoom no mobile
+let initialDistance = null;
 
-  grid.addEventListener('touchmove', (event) => {
-    if (!touchStartX) return;
+grid.addEventListener('touchmove', (event) => {
+  if (event.touches.length === 2) { // Apenas se houver dois toques na tela
+    const touch1 = event.touches[0];
+    const touch2 = event.touches[1];
 
-    const touchEndX = event.touches[0].clientX;
-    const diffX = touchStartX - touchEndX;
+    // Calcula a distância entre os dois toques
+    const distance = Math.hypot(
+      touch2.clientX - touch1.clientX,
+      touch2.clientY - touch1.clientY
+    );
 
-    if (Math.abs(diffX) > 10) { // Avoid registering small accidental touches
-      if (diffX > 0 && currentColumns < maxColumns) {
-        currentColumns++; // Swipe left: increase columns
-      } else if (diffX < 0 && currentColumns > minColumns) {
-        currentColumns--; // Swipe right: decrease columns
+    if (initialDistance !== null) {
+      if (distance > initialDistance + 10 && currentColumns < maxColumns) {
+        currentColumns++;
+      } else if (distance < initialDistance - 10 && currentColumns > minColumns) {
+        currentColumns--;
       }
-
       updateGridColumns(currentColumns);
-      touchStartX = 0; // Reset the start position after movement
     }
-  });
-} else {
-  console.error("Grid element with class 'grid' not found.");
-}
+
+    initialDistance = distance;
+  }
+});
+
+grid.addEventListener('touchend', () => {
+  initialDistance = null; // Reset após o gesto
+});
+
+// Inicializa as colunas
+updateGridColumns(currentColumns);
