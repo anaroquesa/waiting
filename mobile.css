@@ -264,7 +264,7 @@ p {
   line-height: 0.9em;
   position: fixed;
   top: 200px;
-  left:5px;
+  left:10px;
   filter: blur(2px);
 }
 
