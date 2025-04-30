@@ -281,6 +281,8 @@ p {
 
 .light-mode .shuffle-btn {
   background-color:rgb(219, 223, 207);
+  opacity: 0.9;
+  backdrop-filter: blur(3px);
   color: rgb(175, 178, 165);
   border: 1px solid rgb(175, 178, 165);
 }

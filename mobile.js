@@ -59,7 +59,6 @@ document.addEventListener('mousemove', (event) => {
   }
 });
 
-
 // Open the modal with the clicked image
 images.forEach((image, index) => {
   image.addEventListener('click', () => {
@@ -90,7 +89,6 @@ document.getElementById('next-arrow').addEventListener('click', () => {
   showNextImage();
 });
 
-
 // Function to show the next image
 function showNextImage() {
   currentIndex = (currentIndex + 1) % images.length;
@@ -102,7 +100,6 @@ function showPreviousImage() {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   modalImage.src = images[currentIndex].src;
 }
-
 
 function shuffleImages() {
   resetFilters();
@@ -125,19 +122,41 @@ window.addEventListener('wheel', (event) => {
 
 // Swipe detection for mobile devices
 let touchStartX = 0;
-window.addEventListener('touchstart', (event) => {
-  touchStartX = event.touches[0].clientX;
+let touchEndX = 0;
+
+// Adiciona o evento 'touchstart' para capturar a posição inicial do toque
+grid.addEventListener('touchstart', (event) => {
+  touchStartX = event.touches[0].clientX; // Captura a posição inicial do toque
 });
 
-window.addEventListener('touchend', (event) => {
-  const touchEndX = event.changedTouches[0].clientX;
-  if (modal.style.display === 'flex') {
-    if (touchEndX < touchStartX) {
-      showNextImage();
-    } else if (touchEndX > touchStartX) {
-      showPreviousImage();
+// Adiciona o evento 'touchmove' para monitorar o movimento enquanto o dedo está pressionado
+grid.addEventListener('touchmove', (event) => {
+  // Verifica se o toque começou
+  if (touchStartX === 0) return;
+
+  // Calcula a diferença no movimento horizontal
+  touchEndX = event.touches[0].clientX;
+  const diffX = touchStartX - touchEndX;
+
+  // Atualiza o número de colunas com base no movimento horizontal contínuo
+  if (Math.abs(diffX) > 10) {  // Evitar movimentos pequenos ou toques acidentais
+    if (diffX > 0 && currentColumns < maxColumns) {
+      currentColumns++;  // Aumenta as colunas se o dedo se moveu para a esquerda
+    } else if (diffX < 0 && currentColumns > minColumns) {
+      currentColumns--;  // Diminui as colunas se o dedo se moveu para a direita
     }
+
+    // Atualiza as colunas da grade
+    updateGridColumns(currentColumns);
+
+    // Recalcula a posição inicial do toque para o próximo movimento
+    touchStartX = touchEndX;
   }
+});
+
+// Adiciona o evento 'touchend' para resetar a posição quando o dedo for solto
+grid.addEventListener('touchend', () => {
+  touchStartX = 0;  // Reset the starting touch position
 });
 
 // Arrow key navigation
@@ -150,7 +169,6 @@ window.addEventListener('keydown', (event) => {
     }
   }
 });
-
 
 // Filter functions
 function filterAbout() {
@@ -175,7 +193,6 @@ function filterAll() {
     about.style.display = 'none';
   }
 }
-
 
 function filterLogos() {
   const images = document.querySelectorAll('.image');
@@ -250,40 +267,32 @@ function toggleActive(button) {
 // Preload images when the page starts
 preloadImages();
 
-
 var seconds = 0;
 var el = document.getElementById('timeDisplay');
 
 function incrementSeconds() {
-    seconds += 1;
-    el.innerText = seconds + " seconds";
+  seconds += 1;
+  el.innerText = seconds + " seconds";
 }
 
 var cancel = setInterval(incrementSeconds, 1000);
-
 
 function lightMode() {
   var element = document.body;
   element.classList.toggle("light-mode");
 }
 
-function toggleDiv(divid)
-  {
+function toggleDiv(divid) {
+  varon = divid + 'on';
+  varoff = divid + 'off';
 
-    varon = divid + 'on';
-    varoff = divid + 'off';
-
-    if(document.getElementById(varon).style.display == 'block')
-    {
+  if (document.getElementById(varon).style.display == 'block') {
     document.getElementById(varon).style.display = 'none';
     document.getElementById(varoff).style.display = 'block';
-    }
-
-    else
-    {
+  } else {
     document.getElementById(varoff).style.display = 'none';
     document.getElementById(varon).style.display = 'block'
-    }
+  }
 }
 
 let currentColumns = 3; // Default number of columns
