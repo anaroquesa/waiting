@@ -26,18 +26,15 @@ p {
   max-height: 150px;
   position: absolute;
   visibility: hidden;
-  transition: visibility 0s 0.5s;
-  transition: width 3s;
-  transition-delay: 1s;
+  transition: border-radius 0.2s ease;
 }
 
 .image:hover {
-  border-radius: 30px;
+  border-radius: 20px;
 }
 
 .image.loaded {
-  visibility: visible; /* Make them visible when they're loaded */
-  transition: visibility 0s 0s; /* Remove the delay */
+  visibility: visible;
 }
 .modal {
   position: fixed;

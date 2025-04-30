@@ -1,74 +1,26 @@
-// Verificar se o contador já existe no localStorage
-let entryCount = localStorage.getItem('entryCount');
-if (!entryCount) {
-entryCount = 0;  // Caso não exista, inicializa o contador
-}
-
-// Incrementar o contador
-entryCount++;
-
-// Salvar o novo contador no localStorage
-localStorage.setItem('entryCount', entryCount);
-
-// Função para obter a geolocalização
-function getGeolocation() {
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(saveLocation, showError);
-} else {
-  console.log("Geolocalização não é suportada por este navegador.");
-}
-}
-
-// Função de callback para salvar a localização
 function saveLocation(position) {
-const latitude = position.coords.latitude;
-const longitude = position.coords.longitude;
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
 
-// Criar um objeto com as informações de entrada e localização
-const entryData = {
-  entryCount: entryCount,
-  latitude: latitude,
-  longitude: longitude,
-  timestamp: new Date().toISOString() // Horário de entrada
-};
+  const entryData = {
+      entryCount: entryCount,
+      latitude: latitude,
+      longitude: longitude,
+      timestamp: new Date().toISOString()
+  };
 
-// Recuperar entradas anteriores ou criar uma nova lista
-let entries = JSON.parse(localStorage.getItem('entries')) || [];
-
-// Adicionar nova entrada à lista
-entries.push(entryData);
-
-// Salvar a lista atualizada de entradas no localStorage
-localStorage.setItem('entries', JSON.stringify(entries));
-
-console.log(`Entrada ${entryCount} registrada com sucesso!`);
-console.log(`Localização: Lat: ${latitude}, Long: ${longitude}`);
+  // Enviar os dados para o servidor
+  fetch('http://127.0.0.1:5000/log-entry', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(entryData),
+  })
+  .then(response => response.json())
+  .then(data => console.log('Entrada registrada:', data))
+  .catch((error) => console.error('Erro ao registrar entrada:', error));
 }
-
-// Função de erro caso não seja possível obter a localização
-function showError(error) {
-switch(error.code) {
-  case error.PERMISSION_DENIED:
-    console.log("Usuário rejeitou a solicitação de geolocalização.");
-    break;
-  case error.POSITION_UNAVAILABLE:
-    console.log("Informações de localização não disponíveis.");
-    break;
-  case error.TIMEOUT:
-    console.log("A solicitação de geolocalização expirou.");
-    break;
-  case error.UNKNOWN_ERROR:
-    console.log("Erro desconhecido.");
-    break;
-}
-}
-
-// Chamar a função para obter a geolocalização
-getGeolocation();
-
-// Exibir o número de entradas no console (ou onde desejar)
-console.log(`Número total de entradas: ${entryCount}`);
-
 
 
 const images = document.querySelectorAll('.image');
@@ -184,34 +136,55 @@ window.addEventListener('wheel', (event) => {
 let touchStartX = 0;
 let touchEndX = 0;
 
+// Definir o número mínimo e máximo de colunas
+let currentColumns = 3; // Colunas padrão
+const minColumns = 1;   // Número mínimo de colunas
+const maxColumns = 10;  // Número máximo de colunas
+const grid = document.querySelector('.grid');
+// Função para atualizar a grid com base no número de colunas
+function updateGridColumns(columns) {
+  const grid = document.querySelector('.grid');
+  if (grid) {
+    grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+  }
+}
+
+// Evento de início de toque
 grid.addEventListener('touchstart', (event) => {
-  touchStartX = event.touches[0].clientX;
+  touchStartX = event.touches[0].clientX; // Pegando a posição inicial do toque
 });
 
+// Evento de movimento do toque
 grid.addEventListener('touchmove', (event) => {
+  if (touchStartX === 0) return; // Evitar problemas com valores indefinidos
 
-  if (touchStartX === 0) return;
+  touchEndX = event.touches[0].clientX; // Pegando a posição do toque enquanto move
+  const diffX = touchStartX - touchEndX; // Diferença no eixo X (horizontal)
 
-  touchEndX = event.touches[0].clientX;
-  const diffX = touchStartX - touchEndX;
-
-  // Atualiza o número de colunas com base no movimento horizontal contínuo
-  if (Math.abs(diffX) > 20) {
+  // Atualizar o número de colunas com base no movimento horizontal
+  if (Math.abs(diffX) > 20) { // Ação somente se o movimento for significativo
     if (diffX > 0 && currentColumns < maxColumns) {
-      currentColumns++;  // Aumenta as colunas se o dedo se moveu para a esquerda
+      currentColumns++;  // Aumenta o número de colunas se o movimento for para a esquerda
     } else if (diffX < 0 && currentColumns > minColumns) {
-      currentColumns--;  // Diminui as colunas se o dedo se moveu para a direita
+      currentColumns--;  // Diminui o número de colunas se o movimento for para a direita
     }
 
+    // Atualiza a grid com o novo número de colunas
     updateGridColumns(currentColumns);
 
+    // Resetar o ponto de início do toque
     touchStartX = touchEndX;
   }
 });
 
+// Evento de fim de toque
 grid.addEventListener('touchend', () => {
-  touchStartX = 0;
+  touchStartX = 0; // Resetar a posição do toque
 });
+
+// Inicializa a grid com o número padrão de colunas
+updateGridColumns(currentColumns);
+
 
 function filterAbout() {
   const images = document.querySelectorAll('.image');
@@ -336,21 +309,3 @@ function toggleDiv(divid) {
     document.getElementById(varon).style.display = 'block'
   }
 }
-
-let currentColumns = 3; // Default number of columns
-const minColumns = 1;   // Minimum number of columns
-const maxColumns = 10;  // Maximum number of columns
-
-// Function to update the grid columns dynamically
-function updateGridColumns(columns) {
-  const grid = document.querySelector('.grid');
-  if (grid) {
-    grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-  }
-}
-
-// Initialize the grid with the default number of columns
-updateGridColumns(currentColumns);
-
-// Event listener for horizontal scrolling (desktop)
-const grid = document.querySelector('.grid');
