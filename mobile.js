@@ -325,43 +325,13 @@ if (grid) {
   });
 
   // Touch event for mobile (swipe left/right)
-  let initialPinchDistance = null;
+  let touchStartX = 0;
+  grid.addEventListener('touchstart', (event) => {
+    touchStartX = event.touches[0].clientX; // Capture the starting touch position
+  });
 
-grid.addEventListener('touchstart', (event) => {
-  if (event.touches.length === 2) {
-    const dx = event.touches[0].clientX - event.touches[1].clientX;
-    const dy = event.touches[0].clientY - event.touches[1].clientY;
-    initialPinchDistance = Math.hypot(dx, dy);
-  }
-});
-
-grid.addEventListener('touchmove', (event) => {
-  if (event.touches.length === 2 && initialPinchDistance !== null) {
-    const dx = event.touches[0].clientX - event.touches[1].clientX;
-    const dy = event.touches[0].clientY - event.touches[1].clientY;
-    const currentPinchDistance = Math.hypot(dx, dy);
-
-    const pinchDelta = currentPinchDistance - initialPinchDistance;
-
-    if (Math.abs(pinchDelta) > 20) { // Sensibilidade
-      if (pinchDelta > 0 && currentColumns < maxColumns) {
-        currentColumns++;
-      } else if (pinchDelta < 0 && currentColumns > minColumns) {
-        currentColumns--;
-      }
-
-      updateGridColumns(currentColumns);
-      initialPinchDistance = currentPinchDistance; // Atualiza para gestos contínuos
-    }
-
-    event.preventDefault(); // Impede zoom padrão da página
-  }
-});
-
-grid.addEventListener('touchend', () => {
-  initialPinchDistance = null;
-});
-
+  grid.addEventListener('touchmove', (event) => {
+    if (!touchStartX) return;
 
     const touchEndX = event.touches[0].clientX;
     const diffX = touchStartX - touchEndX;
