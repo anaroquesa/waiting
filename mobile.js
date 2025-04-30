@@ -1,3 +1,76 @@
+// Verificar se o contador já existe no localStorage
+let entryCount = localStorage.getItem('entryCount');
+if (!entryCount) {
+entryCount = 0;  // Caso não exista, inicializa o contador
+}
+
+// Incrementar o contador
+entryCount++;
+
+// Salvar o novo contador no localStorage
+localStorage.setItem('entryCount', entryCount);
+
+// Função para obter a geolocalização
+function getGeolocation() {
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(saveLocation, showError);
+} else {
+  console.log("Geolocalização não é suportada por este navegador.");
+}
+}
+
+// Função de callback para salvar a localização
+function saveLocation(position) {
+const latitude = position.coords.latitude;
+const longitude = position.coords.longitude;
+
+// Criar um objeto com as informações de entrada e localização
+const entryData = {
+  entryCount: entryCount,
+  latitude: latitude,
+  longitude: longitude,
+  timestamp: new Date().toISOString() // Horário de entrada
+};
+
+// Recuperar entradas anteriores ou criar uma nova lista
+let entries = JSON.parse(localStorage.getItem('entries')) || [];
+
+// Adicionar nova entrada à lista
+entries.push(entryData);
+
+// Salvar a lista atualizada de entradas no localStorage
+localStorage.setItem('entries', JSON.stringify(entries));
+
+console.log(`Entrada ${entryCount} registrada com sucesso!`);
+console.log(`Localização: Lat: ${latitude}, Long: ${longitude}`);
+}
+
+// Função de erro caso não seja possível obter a localização
+function showError(error) {
+switch(error.code) {
+  case error.PERMISSION_DENIED:
+    console.log("Usuário rejeitou a solicitação de geolocalização.");
+    break;
+  case error.POSITION_UNAVAILABLE:
+    console.log("Informações de localização não disponíveis.");
+    break;
+  case error.TIMEOUT:
+    console.log("A solicitação de geolocalização expirou.");
+    break;
+  case error.UNKNOWN_ERROR:
+    console.log("Erro desconhecido.");
+    break;
+}
+}
+
+// Chamar a função para obter a geolocalização
+getGeolocation();
+
+// Exibir o número de entradas no console (ou onde desejar)
+console.log(`Número total de entradas: ${entryCount}`);
+
+
+
 const images = document.querySelectorAll('.image');
 const modal = document.getElementById('modal');
 const modalImage = document.getElementById('modal-image');
