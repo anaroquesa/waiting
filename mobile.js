@@ -1,352 +1,179 @@
-const images = document.querySelectorAll('.image');
-const modal = document.getElementById('modal');
-const modalImage = document.getElementById('modal-image');
-const closeBtn = document.getElementById('close-btn');
-const shuffleBtn = document.getElementById('shuffle-btn');
-
-let currentIndex = -1;
-let mouseX = 0;
-let mouseY = 0;
-
-const desiredDistance = 100;
-
-// Margin limits (30% of the screen size)
+// Constants
 const margin = 0.3;
-
-// Calculate the boundaries (70% of screen size)
 const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;
-
 const limitXMin = screenWidth * margin;
 const limitXMax = screenWidth * (1 - margin);
 const limitYMin = screenHeight * margin;
 const limitYMax = screenHeight * (1 - margin);
 
+let mouseX = 0;
+let mouseY = 0;
+let currentIndex = -1;
+let currentColumns = 3;
+const minColumns = 1;
+const maxColumns = 10;
+
+// Elements
+const images = document.querySelectorAll('.image');
+const modal = document.getElementById('modal');
+const modalImage = document.getElementById('modal-image');
+const closeBtn = document.getElementById('close-btn');
+const shuffleBtn = document.getElementById('shuffle-btn');
+const grid = document.querySelector('.grid');
+const timeDisplay = document.getElementById('timeDisplay');
+
+// Track image properties
 const imageProperties = Array.from(images).map(image => {
-  const imageWidth = image.width || 150; // Default width (in case image width isn't yet calculated)
-  const imageHeight = image.height || 150; // Default height
-  return {
-    element: image,
-    width: imageWidth,
-    height: imageHeight,
-    x: (screenWidth - imageWidth) / 2, // Center horizontally
-    y: (screenHeight - imageHeight) / 2, // Center vertically
-    velocityX: 0,
-    velocityY: 0,
-    variationStrength: 0.5,
-    paused: false, // New property to track hover state
-  };
+  const width = image.width || 150;
+  const height = image.height || 150;
+  return { element: image, width, height, x: (screenWidth - width) / 2, y: (screenHeight - height) / 2 };
 });
 
 // Preload images
-function preloadImages() {
-  images.forEach(image => {
-    const img = new Image();
-    img.src = image.src; // Preload each image
-  });
+images.forEach(img => new Image().src = img.src);
+
+// Update grid layout
+function updateGridColumns(cols) {
+  if (grid) grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 }
 
-document.addEventListener('mousemove', (event) => {
-  // Check if the mouse is within the defined boundaries
-  if (
-    event.clientX >= limitXMin &&
-    event.clientX <= limitXMax &&
-    event.clientY >= limitYMin &&
-    event.clientY <= limitYMax
-  ) {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-  }
-});
-
-
-// Open the modal with the clicked image
-images.forEach((image, index) => {
-  image.addEventListener('click', () => {
-    currentIndex = index;
-    modal.style.display = 'flex';
-    modalImage.src = image.src;
-  });
-});
-
-// Close the modal when the close button is clicked
-closeBtn.addEventListener('click', () => {
-  modal.style.display = 'none';
-});
-
-// Close the modal if the user clicks outside the image
-window.addEventListener('click', (event) => {
-  if (event.target === modal || event.target === modalImage) {
-    modal.style.display = 'none';
-  }
-});
-
-// Add event listeners for the arrows
-document.getElementById('prev-arrow').addEventListener('click', () => {
-  showPreviousImage();
-});
-
-document.getElementById('next-arrow').addEventListener('click', () => {
-  showNextImage();
-});
-
-
-// Function to show the next image
-function showNextImage() {
-  currentIndex = (currentIndex + 1) % images.length;
-  modalImage.src = images[currentIndex].src;
-}
-
-// Function to show the previous image
-function showPreviousImage() {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  modalImage.src = images[currentIndex].src;
-}
-
-
+// Shuffle image positions
 function shuffleImages() {
-  resetFilters();
-  imageProperties.forEach((image) => {
-    image.x = Math.random() * (screenWidth - image.width);
-    image.y = Math.random() * (screenHeight - image.height);
+  imageProperties.forEach(img => {
+    img.x = Math.random() * (screenWidth - img.width);
+    img.y = Math.random() * (screenHeight - img.height);
   });
 }
 
-// Scroll to switch images in the modal
-window.addEventListener('wheel', (event) => {
-  if (modal.style.display === 'flex') {
-    if (event.deltaY > 0) {
-      showNextImage();
-    } else {
-      showPreviousImage();
-    }
+// Modal controls
+function showImage(index) {
+  currentIndex = (index + images.length) % images.length;
+  modalImage.src = images[currentIndex].src;
+}
+
+function toggleModal(show) {
+  modal.style.display = show ? 'flex' : 'none';
+}
+
+// Event Listeners
+document.addEventListener('mousemove', e => {
+  if (e.clientX >= limitXMin && e.clientX <= limitXMax && e.clientY >= limitYMin && e.clientY <= limitYMax) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
   }
 });
 
-// Swipe detection for mobile devices
+images.forEach((img, i) => img.addEventListener('click', () => { showImage(i); toggleModal(true); }));
+
+closeBtn.addEventListener('click', () => toggleModal(false));
+window.addEventListener('click', e => (e.target === modal || e.target === modalImage) && toggleModal(false));
+
+// Modal navigation
+document.getElementById('prev-arrow').addEventListener('click', () => showImage(currentIndex - 1));
+document.getElementById('next-arrow').addEventListener('click', () => showImage(currentIndex + 1));
+
+// Modal input handlers
+window.addEventListener('wheel', e => modal.style.display === 'flex' && showImage(currentIndex + (e.deltaY > 0 ? 1 : -1)));
+
+window.addEventListener('keydown', e => {
+  if (modal.style.display === 'flex') {
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    else if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+  }
+});
+
 let touchStartX = 0;
-window.addEventListener('touchstart', (event) => {
-  touchStartX = event.touches[0].clientX;
-});
-
-window.addEventListener('touchend', (event) => {
-  const touchEndX = event.changedTouches[0].clientX;
+window.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+window.addEventListener('touchend', e => {
   if (modal.style.display === 'flex') {
-    if (touchEndX < touchStartX) {
-      showNextImage();
-    } else if (touchEndX > touchStartX) {
-      showPreviousImage();
-    }
+    const delta = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) > 10) showImage(currentIndex + (delta < 0 ? 1 : -1));
   }
 });
 
-// Arrow key navigation
-window.addEventListener('keydown', (event) => {
-  if (modal.style.display === 'flex') {
-    if (event.key === 'ArrowRight') {
-      showNextImage();
-    } else if (event.key === 'ArrowLeft') {
-      showPreviousImage();
-    }
-  }
-});
+// Light mode toggle
+function lightMode() {
+  document.body.classList.toggle("light-mode");
+}
 
-
-// Filter functions
-function filterAbout() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'block';
+// Toggle display of custom divs
+function toggleDiv(divId) {
+  const on = document.getElementById(divId + 'on');
+  const off = document.getElementById(divId + 'off');
+  if (on.style.display === 'block') {
+    on.style.display = 'none';
+    off.style.display = 'block';
+  } else {
+    on.style.display = 'block';
+    off.style.display = 'none';
   }
 }
 
-function filterAll() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'block';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
+// Filter controls
+function setFilter(filterClass) {
+  document.querySelectorAll('.image').forEach(img => img.style.display = 'none');
+  document.querySelectorAll('.about').forEach(el => el.style.display = 'none');
+  if (filterClass === 'about') {
+    document.querySelector('.about')?.style.display = 'block';
+  } else {
+    document.querySelectorAll(`.${filterClass}`).forEach(el => el.style.display = 'block');
   }
 }
 
-
-function filterLogos() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const logos = document.querySelectorAll('#logo');
-  logos.forEach(logo => {
-    logo.style.display = 'block';
-  });
-}
-
-function filterIllustrations() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const illustrations = document.querySelectorAll('#illustration');
-  illustrations.forEach(illustration => {
-    illustration.style.display = 'block';
-  });
-}
-
-function filterEditorials() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const editorials = document.querySelectorAll('#editorial');
-  editorials.forEach(editorial => {
-    editorial.style.display = 'block';
-  });
-}
-
-function filterWebs() {
-  const images = document.querySelectorAll('.image');
-  images.forEach(image => {
-    image.style.display = 'none';
-  });
-  const about = document.querySelector('.about');
-  if (about) {
-    about.style.display = 'none';
-  }
-  const webs = document.querySelectorAll('#web');
-  webs.forEach(web => {
-    web.style.display = 'block';
-  });
-}
-
-// Toggle active button
 function toggleActive(button) {
-  // Remove active class from all buttons
-  const buttons = document.querySelectorAll('.shuffle-btn');
-  buttons.forEach(btn => btn.classList.remove('active'));
-
-  // Add active class to the clicked button
+  document.querySelectorAll('.shuffle-btn').forEach(btn => btn.classList.remove('active'));
   button.classList.add('active');
 }
 
-// Preload images when the page starts
-preloadImages();
+// Timer
+let seconds = 0;
+setInterval(() => {
+  seconds++;
+  if (timeDisplay) timeDisplay.innerText = `${seconds} seconds`;
+}, 1000);
 
-
-var seconds = 0;
-var el = document.getElementById('timeDisplay');
-
-function incrementSeconds() {
-    seconds += 1;
-    el.innerText = seconds + " seconds";
-}
-
-var cancel = setInterval(incrementSeconds, 1000);
-
-
-function lightMode() {
-  var element = document.body;
-  element.classList.toggle("light-mode");
-}
-
-function toggleDiv(divid)
-  {
-
-    varon = divid + 'on';
-    varoff = divid + 'off';
-
-    if(document.getElementById(varon).style.display == 'block')
-    {
-    document.getElementById(varon).style.display = 'none';
-    document.getElementById(varoff).style.display = 'block';
-    }
-
-    else
-    {
-    document.getElementById(varoff).style.display = 'none';
-    document.getElementById(varon).style.display = 'block'
-    }
-}
-
-let currentColumns = 3; // Default number of columns
-const minColumns = 1;   // Minimum number of columns
-const maxColumns = 10;  // Maximum number of columns
-
-// Function to update the grid columns dynamically
-function updateGridColumns(columns) {
-  const grid = document.querySelector('.grid');
-  if (grid) {
-    grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-  }
-}
-
-// Initialize the grid with the default number of columns
-updateGridColumns(currentColumns);
-
-// Event listener for horizontal scrolling (desktop)
-const grid = document.querySelector('.grid');
-
+// Grid zoom gestures (desktop + touch)
 if (grid) {
-  // Mouse wheel event for desktop
-  grid.addEventListener('wheel', (event) => {
-    // Stop if the scroll is primarily vertical
-    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-      return; // Exit the function to ignore vertical scrolling
-    }
+  updateGridColumns(currentColumns);
 
-    // Handle horizontal scrolling
-    if (event.deltaX > 0 && currentColumns < maxColumns) {
-      currentColumns++;
-    } else if (event.deltaX < 0 && currentColumns > minColumns) {
-      currentColumns--;
-    }
-
-    // Update the grid columns and prevent default behavior
-    updateGridColumns(currentColumns);
-    event.preventDefault();
-  });
-
-  // Touch event for mobile (swipe left/right)
-  let touchStartX = 0;
-  grid.addEventListener('touchstart', (event) => {
-    touchStartX = event.touches[0].clientX; // Capture the starting touch position
-  });
-
-  grid.addEventListener('touchmove', (event) => {
-    if (!touchStartX) return;
-
-    const touchEndX = event.touches[0].clientX;
-    const diffX = touchStartX - touchEndX;
-
-    if (Math.abs(diffX) > 10) { // Avoid registering small accidental touches
-      if (diffX > 0 && currentColumns < maxColumns) {
-        currentColumns++; // Swipe left: increase columns
-      } else if (diffX < 0 && currentColumns > minColumns) {
-        currentColumns--; // Swipe right: decrease columns
-      }
-
+  // Horizontal scroll on desktop
+  grid.addEventListener('wheel', e => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      currentColumns = Math.max(minColumns, Math.min(maxColumns, currentColumns + (e.deltaX > 0 ? 1 : -1)));
       updateGridColumns(currentColumns);
-      touchStartX = 0; // Reset the start position after movement
+      e.preventDefault();
     }
   });
+
+  // Pinch to zoom on mobile
+  let initialPinchDistance = null;
+
+  grid.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      initialPinchDistance = Math.hypot(dx, dy);
+    }
+  });
+
+  grid.addEventListener('touchmove', e => {
+    if (e.touches.length === 2 && initialPinchDistance !== null) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const currentDistance = Math.hypot(dx, dy);
+
+      const delta = currentDistance - initialPinchDistance;
+      if (Math.abs(delta) > 20) {
+        currentColumns = Math.max(minColumns, Math.min(maxColumns, currentColumns + (delta > 0 ? 1 : -1)));
+        updateGridColumns(currentColumns);
+        initialPinchDistance = currentDistance;
+      }
+      e.preventDefault();
+    }
+  });
+
+  grid.addEventListener('touchend', () => initialPinchDistance = null);
 } else {
   console.error("Grid element with class 'grid' not found.");
 }

@@ -8,10 +8,6 @@ html, body {
   scroll-snap-type: none;
 }
 
-@font-face {
-  font-family: 'Telegraph';
-  src: url('pptelegraf-regular.otf') format('opentype');
-}
 
 @font-face {
   font-family: 'Telegraph light';
