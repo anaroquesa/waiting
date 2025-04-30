@@ -115,12 +115,12 @@ const imageProperties = Array.from(images).map(image => {
 function preloadImages() {
   images.forEach(image => {
     const img = new Image();
-    img.src = image.src; // Preload each image
+    img.src = image.src;
   });
 }
 
 document.addEventListener('mousemove', (event) => {
-  // Check if the mouse is within the defined boundaries
+
   if (
     event.clientX >= limitXMin &&
     event.clientX <= limitXMax &&
@@ -132,7 +132,7 @@ document.addEventListener('mousemove', (event) => {
   }
 });
 
-// Open the modal with the clicked image
+
 images.forEach((image, index) => {
   image.addEventListener('click', () => {
     currentIndex = index;
@@ -141,19 +141,17 @@ images.forEach((image, index) => {
   });
 });
 
-// Close the modal when the close button is clicked
+
 closeBtn.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
-// Close the modal if the user clicks outside the image
 window.addEventListener('click', (event) => {
   if (event.target === modal || event.target === modalImage) {
     modal.style.display = 'none';
   }
 });
 
-// Add event listeners for the arrows
 document.getElementById('prev-arrow').addEventListener('click', () => {
   showPreviousImage();
 });
@@ -162,27 +160,17 @@ document.getElementById('next-arrow').addEventListener('click', () => {
   showNextImage();
 });
 
-// Function to show the next image
 function showNextImage() {
   currentIndex = (currentIndex + 1) % images.length;
   modalImage.src = images[currentIndex].src;
 }
 
-// Function to show the previous image
 function showPreviousImage() {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   modalImage.src = images[currentIndex].src;
 }
 
-function shuffleImages() {
-  resetFilters();
-  imageProperties.forEach((image) => {
-    image.x = Math.random() * (screenWidth - image.width);
-    image.y = Math.random() * (screenHeight - image.height);
-  });
-}
 
-// Scroll to switch images in the modal
 window.addEventListener('wheel', (event) => {
   if (modal.style.display === 'flex') {
     if (event.deltaY > 0) {
@@ -193,57 +181,38 @@ window.addEventListener('wheel', (event) => {
   }
 });
 
-// Swipe detection for mobile devices
 let touchStartX = 0;
 let touchEndX = 0;
 
-// Adiciona o evento 'touchstart' para capturar a posição inicial do toque
 grid.addEventListener('touchstart', (event) => {
-  touchStartX = event.touches[0].clientX; // Captura a posição inicial do toque
+  touchStartX = event.touches[0].clientX;
 });
 
-// Adiciona o evento 'touchmove' para monitorar o movimento enquanto o dedo está pressionado
 grid.addEventListener('touchmove', (event) => {
-  // Verifica se o toque começou
+
   if (touchStartX === 0) return;
 
-  // Calcula a diferença no movimento horizontal
   touchEndX = event.touches[0].clientX;
   const diffX = touchStartX - touchEndX;
 
   // Atualiza o número de colunas com base no movimento horizontal contínuo
-  if (Math.abs(diffX) > 10) {  // Evitar movimentos pequenos ou toques acidentais
+  if (Math.abs(diffX) > 20) {
     if (diffX > 0 && currentColumns < maxColumns) {
       currentColumns++;  // Aumenta as colunas se o dedo se moveu para a esquerda
     } else if (diffX < 0 && currentColumns > minColumns) {
       currentColumns--;  // Diminui as colunas se o dedo se moveu para a direita
     }
 
-    // Atualiza as colunas da grade
     updateGridColumns(currentColumns);
 
-    // Recalcula a posição inicial do toque para o próximo movimento
     touchStartX = touchEndX;
   }
 });
 
-// Adiciona o evento 'touchend' para resetar a posição quando o dedo for solto
 grid.addEventListener('touchend', () => {
-  touchStartX = 0;  // Reset the starting touch position
+  touchStartX = 0;
 });
 
-// Arrow key navigation
-window.addEventListener('keydown', (event) => {
-  if (modal.style.display === 'flex') {
-    if (event.key === 'ArrowRight') {
-      showNextImage();
-    } else if (event.key === 'ArrowLeft') {
-      showPreviousImage();
-    }
-  }
-});
-
-// Filter functions
 function filterAbout() {
   const images = document.querySelectorAll('.image');
   images.forEach(image => {
@@ -385,50 +354,3 @@ updateGridColumns(currentColumns);
 
 // Event listener for horizontal scrolling (desktop)
 const grid = document.querySelector('.grid');
-
-if (grid) {
-  // Mouse wheel event for desktop
-  grid.addEventListener('wheel', (event) => {
-    // Stop if the scroll is primarily vertical
-    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-      return; // Exit the function to ignore vertical scrolling
-    }
-
-    // Handle horizontal scrolling
-    if (event.deltaX > 0 && currentColumns < maxColumns) {
-      currentColumns++;
-    } else if (event.deltaX < 0 && currentColumns > minColumns) {
-      currentColumns--;
-    }
-
-    // Update the grid columns and prevent default behavior
-    updateGridColumns(currentColumns);
-    event.preventDefault();
-  });
-
-  // Touch event for mobile (swipe left/right)
-  let touchStartX = 0;
-  grid.addEventListener('touchstart', (event) => {
-    touchStartX = event.touches[0].clientX; // Capture the starting touch position
-  });
-
-  grid.addEventListener('touchmove', (event) => {
-    if (!touchStartX) return;
-
-    const touchEndX = event.touches[0].clientX;
-    const diffX = touchStartX - touchEndX;
-
-    if (Math.abs(diffX) > 10) { // Avoid registering small accidental touches
-      if (diffX > 0 && currentColumns < maxColumns) {
-        currentColumns++; // Swipe left: increase columns
-      } else if (diffX < 0 && currentColumns > minColumns) {
-        currentColumns--; // Swipe right: decrease columns
-      }
-
-      updateGridColumns(currentColumns);
-      touchStartX = 0; // Reset the start position after movement
-    }
-  });
-} else {
-  console.error("Grid element with class 'grid' not found.");
-}
