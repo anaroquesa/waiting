@@ -8,10 +8,25 @@ html, body {
   scroll-snap-type: none;
 }
 
-
 @font-face {
   font-family: 'Telegraph light';
   src: url('pptelegraf-ultralight.otf') format('opentype');
+}
+
+#custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 10px;
+  transform: translate(20%, -50%);
+  display: inline;
+  max-width: 150px;
+  font-size: 12px;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 ::selection {

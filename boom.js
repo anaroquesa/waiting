@@ -269,3 +269,56 @@ document.getElementById('about').addEventListener('click', function () {
   filterAbout();
   toggleActive(this);
 });
+
+
+const cursor = document.getElementById("custom-cursor");
+
+// abrir modal com imagem + alt no cursor
+imageProperties.forEach((img, i) => {
+  img.element.addEventListener('mouseover', () => img.paused = true);
+  img.element.addEventListener('mouseout', () => img.paused = false);
+  img.element.addEventListener('click', () => {
+    modal.style.display = 'flex';
+    modalImage.src = img.element.src;
+    modalImage.alt = img.element.alt;
+    currentIndex = i;
+
+    // mostra o cursor com o alt
+    cursor.textContent = img.element.alt;
+    cursor.style.display = 'block';
+  });
+});
+
+// fechar modal → esconder cursor
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  cursor.style.display = 'none';
+});
+window.addEventListener('click', e => {
+  if (e.target === modal || e.target === modalImage) {
+    modal.style.display = 'none';
+    cursor.style.display = 'none';
+  }
+});
+
+// atualizar posição do cursor
+document.addEventListener('mousemove', e => {
+  if (cursor.style.display === 'block') {
+    cursor.style.left = e.pageX + 'px';
+    cursor.style.top = e.pageY + 'px';
+  }
+});
+
+// quando navegas no modal (next/prev) → atualizar também o alt no cursor
+function showNextImage() {
+  currentIndex = (currentIndex + 1) % images.length;
+  modalImage.src = images[currentIndex].src;
+  modalImage.alt = images[currentIndex].alt;
+  cursor.textContent = images[currentIndex].alt;
+}
+function showPreviousImage() {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  modalImage.src = images[currentIndex].src;
+  modalImage.alt = images[currentIndex].alt;
+  cursor.textContent = images[currentIndex].alt;
+}
